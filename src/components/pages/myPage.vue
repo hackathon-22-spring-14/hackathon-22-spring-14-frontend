@@ -1,18 +1,24 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from './components/global/Header.vue'
+import Header from '../organisms/Header.vue'
+import Footer from '../organisms/Footer.vue'
 </script>
 
 <template>
-  <Header />
+  <Header></Header>
+  <p>
+      MyPage!!
+  </p>
+  <Footer></Footer>
 </template>
 
 <style>
 
 :root {
   /* 色についての設定 */
-  --headerColor: 
+  --headerColor: ;
+  --headerShadowColor: rgba(0,0,0,0.2);
   /* テキストについての設定 */
   --fontSizeTitle: 28px;
   --fontSizeXLarge: 18px;
@@ -25,6 +31,6 @@ import Header from './components/global/Header.vue'
 }
 
 html {
-  
+  padding: 0;
 }
 </style>
