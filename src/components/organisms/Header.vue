@@ -1,6 +1,3 @@
-<script>
-
-</script>
 
 <template>
 <header class="text-gray-600 body-font">
