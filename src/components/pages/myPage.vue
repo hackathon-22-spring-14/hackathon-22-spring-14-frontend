@@ -12,7 +12,13 @@ import Card from '../molecules/stampCard.vue'
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
     <div class="cards__item">
-      <Card></Card>
+      <Card num="1"></Card>
+    </div>
+    <div class="cards__item">
+      <Card num="2"></Card>
+    </div>
+    <div class="cards__item">
+      <Card num="3"></Card>
     </div>
 
     <!-- Repeat other cards -->
@@ -42,6 +48,7 @@ html {
 
 .cards {
   display: flex;
+  justify-content: center;
 
   /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;

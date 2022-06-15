@@ -2,14 +2,16 @@
   <div id="stampCard" class="card">
     <!-- Cover -->
     <div class="card__cover">
-      StampName
+      <!--仮のテキストを置いています-->
+      <!--<div class="stamp_name">{{info.name}}</div>-->
+      <p class="card__title">No.{{num}} : StampName</p>
       <!--テストのために仮の画像を置いています-->
       <img class="card_image" src="../../assets/IMG_1122.JPG" />
       <!--<img src="data:image/png;base64,{{ info.image }}" />-->
     </div>
 
     <!-- Content -->
-    <div class="card__content">updated: {{ info.data }}</div>
+    <div class="card__content">updated: {{ info }}</div>
   </div>
 </template>
 
@@ -17,6 +19,8 @@
 import axios from 'axios'
 
 export default {
+  name: 'Card',
+  props: ['num'],
   data() {
     return {
       info: [],
@@ -25,23 +29,27 @@ export default {
   },
   mounted() {
     axios
-        /** ここにサーバーのURLが入る */
+      /** .get('サーバーのURL(?)') */
       .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then((response) => (this.info = response))
+      .then((response) => (this.info = response.data.time.updated))
       .catch((e) => (this.error = e))
-  },
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;
   margin: 10px;
 }
+.card__title {
+    padding: 5px;
+    background-color: whitesmoke;
+}
 
 .card__cover {
-  height: 200px;
+  height: 205px;
   width: 170px;
   background-color: #6b818e;
 }

@@ -6,13 +6,42 @@ import Footer from '../organisms/masterFooter.vue'
 import Card from '../molecules/stampCard.vue'
 </script>
 
+<script lang="ts">
+export default {
+  name: 'App',
+  components: {
+    Card
+  },
+  data() {
+    return{
+      cards: 1,
+    };
+  },
+  methods: {
+    addCard() {
+      this.cards = this.cards + 1;
+    },
+    reset() {
+      this.cards = 1;
+    }
+  }
+  
+}
+
+</script>
+
 <template>
   <Header></Header>
+  <div>
+    <p><button style="background-color: whitesmoke;" @click="addCard">Add new card</button></p>
+    <p><button style="background-color: whitesmoke;" @click="reset">reset</button></p>
+  </div>
+  
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div class="cards__item">
-      <Card></Card>
+    <div v-for="number in cards" class="cards__item">
+      <Card :num="number"></Card>
     </div>
 
     <!-- Repeat other cards -->
@@ -42,6 +71,7 @@ html {
 
 .cards {
   display: flex;
+  justify-content: center;
 
   /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;
