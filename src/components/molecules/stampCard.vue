@@ -9,7 +9,7 @@
     </div>
 
     <!-- Content -->
-    <div class="card__content">updated: {{ info.data.time.updated }}</div>
+    <div class="card__content">updated: {{ info.data }}</div>
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
   },
   mounted() {
     axios
+        /** ここにサーバーのURLが入る */
       .get('https://api.coindesk.com/v1/bpi/currentprice.json')
       .then((response) => (this.info = response))
       .catch((e) => (this.error = e))

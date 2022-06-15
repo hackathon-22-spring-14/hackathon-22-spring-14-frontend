@@ -3,11 +3,20 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Header from '../organisms/masterHeader.vue'
 import Footer from '../organisms/masterFooter.vue'
+import Card from '../molecules/stampCard.vue'
 </script>
 
 <template>
   <Header></Header>
-  <p>MyPage!!</p>
+  <div class="cards">
+    <!-- A card with given width -->
+    <!--スタンプの数だけv-for-->
+    <div class="cards__item">
+      <Card></Card>
+    </div>
+
+    <!-- Repeat other cards -->
+  </div>
   <Footer></Footer>
 </template>
 
@@ -29,5 +38,21 @@ import Footer from '../organisms/masterFooter.vue'
 
 html {
   padding: 0;
+}
+
+.cards {
+  display: flex;
+
+  /* Put a card in the next row when previous cards take all width */
+  flex-wrap: wrap;
+
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.cards__item {
+  /* There will be 4 cards per row */
+  flex-basis: 170px;
+  padding: 10px;
 }
 </style>
