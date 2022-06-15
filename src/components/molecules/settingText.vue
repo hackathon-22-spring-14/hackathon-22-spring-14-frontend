@@ -1,8 +1,6 @@
 <template>
   <div class="space">
-    <p class="space-title">
-        TEXT
-    </p>
+    <p class="space-title">TEXT</p>
   </div>
 </template>
 
@@ -14,7 +12,7 @@
 }
 
 .space-title {
-    padding: 5px;
-    background-color: rgb(220, 220, 220);
+  padding: 5px;
+  background-color: rgb(220, 220, 220);
 }
 </style>

@@ -10,37 +10,41 @@ import Card from '../molecules/stampCard.vue'
 export default {
   name: 'App',
   components: {
-    Card
+    Card,
   },
   data() {
-    return{
+    return {
       cards: 1,
-    };
+    }
   },
   methods: {
     addCard() {
-      this.cards = this.cards + 1;
+      this.cards = this.cards + 1
     },
     reset() {
-      this.cards = 1;
-    }
-  }
-  
+      this.cards = 1
+    },
+  },
 }
-
 </script>
 
 <template>
   <Header></Header>
   <div>
-    <p><button style="background-color: whitesmoke;" @click="addCard">Add new card</button></p>
-    <p><button style="background-color: whitesmoke;" @click="reset">reset</button></p>
+    <p>
+      <button style="background-color: whitesmoke" @click="addCard">
+        Add new card
+      </button>
+    </p>
+    <p>
+      <button style="background-color: whitesmoke" @click="reset">reset</button>
+    </p>
   </div>
-  
+
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div v-for="number in cards" class="cards__item">
+    <div v-for="number in cards" :key="number" class="cards__item">
       <Card :num="number"></Card>
     </div>
 

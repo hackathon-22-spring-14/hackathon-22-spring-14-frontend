@@ -1,8 +1,6 @@
 <template>
   <div class="space">
-    <p class="space-title">
-        EFFECTS
-    </p>
+    <p class="space-title">EFFECTS</p>
   </div>
 </template>
 
@@ -13,7 +11,7 @@
   margin: 5px;
 }
 .space-title {
-    padding: 5px;
-    background-color: rgb(220, 220, 220);
+  padding: 5px;
+  background-color: rgb(220, 220, 220);
 }
 </style>
