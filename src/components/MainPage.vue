@@ -1,20 +1,21 @@
 <script>
-import { ref, VueElement } from 'vue'
+// import { ref, VueElement } from 'vue'
 
 export default {
   data() {
     return {
       text: 'うし',
+      text2: 'うし',
       picked: 'fantasy',
       colors: [0, 0, 0],
     }
   },
   watch: {
     text: function () {
-      this.rewrite()
+      this.update()
     },
     picked: function () {
-      this.rewrite()
+      this.update()
     },
   },
   mounted() {
@@ -31,21 +32,28 @@ export default {
     this.ctx.strokeRect(10, 10, 100, 100)
   },
   methods: {
-    rewrite() {
-      // 全体をクリア
+    update() {
       this.ctx.clearRect(0, 0, 400, 400)
-
-      if (this.text === '') {
+      // 環境により改行文字が違うので、修正
+      const text_n = this.text.replace(/\r\n|\r/g, '\n')
+      const lines = text_n.split('\n')
+      for (let i = 0; i < lines.length; i++) {
+        this.rewrite(lines[i], i, lines.length)
+      }
+    },
+    rewrite(line, index, n) {
+      if (line === '') {
         return
       }
 
       // 横幅を取得
-      const text_width = this.ctx.measureText(this.text).width
+      const text_width = this.ctx.measureText(line).width
+      const offset = 400 / text_width
+      this.text2 = offset
       // 横幅に合わせて、横方向の倍率を調整
-      this.ctx.scale(1, 1)
 
       // 描画
-      this.ctx.font = 'bold 48px ' + this.picked
+      this.ctx.font = 'bold 400px ' + this.picked
       this.ctx.strokeStyle =
         'rgb(' +
         this.colors[0] +
@@ -54,7 +62,15 @@ export default {
         ',' +
         this.colors[2] +
         ')'
-      this.ctx.fillText(this.text, 0, 48)
+      this.ctx.textBaseline = 'top'
+
+      // ある倍率で描画
+      this.ctx.save()
+      this.ctx.scale(offset, 1 / n)
+
+      this.ctx.fillText(line, 0, 400 * index)
+
+      this.ctx.restore()
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
     },
@@ -79,6 +95,7 @@ export default {
     <label for="fantasy">fantasy</label>
   </div>
   <div>{{ text }}</div>
+  <div>{{ text2 }}</div>
 </template>
 
 <style scoped>
