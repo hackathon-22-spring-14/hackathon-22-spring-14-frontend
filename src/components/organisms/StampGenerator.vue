@@ -45,7 +45,10 @@ export default defineComponent({
       const [red, green, blue] = this.colors
       ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
       ctx.font = 'bold 48px ' + this.picked
-      ctx.fillText(this.text, 0, 48)
+      const lines = this.text.replace(/\r/g, '').split('\n')
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], 0, 48 * (i + 1))
+      }
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
     },
