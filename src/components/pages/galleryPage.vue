@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from '../organisms/Header.vue'
-import Footer from '../organisms/Footer.vue'
+import Header from '../organisms/masterHeader.vue'
+import Footer from '../organisms/masterFooter.vue'
 import Card from '../molecules/stampCard.vue'
 </script>
 
@@ -12,20 +12,19 @@ import Card from '../molecules/stampCard.vue'
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
     <div class="cards__item">
-        <Card></Card>
+      <Card></Card>
     </div>
 
     <!-- Repeat other cards -->
-</div>
+  </div>
   <Footer></Footer>
 </template>
 
 <style>
-
 :root {
   /* 色についての設定 */
   --headerColor: ;
-  --headerShadowColor: rgba(0,0,0,0.2);
+  --headerShadowColor: rgba(0, 0, 0, 0.2);
   /* テキストについての設定 */
   --fontSizeTitle: 28px;
   --fontSizeXLarge: 18px;
@@ -44,7 +43,7 @@ html {
 .cards {
   display: flex;
 
- /* Put a card in the next row when previous cards take all width */
+  /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;
 
   margin-left: -8px;
@@ -52,7 +51,7 @@ html {
 }
 
 .cards__item {
- /* There will be 4 cards per row */
+  /* There will be 4 cards per row */
   flex-basis: 170px;
   padding: 10px;
 }
