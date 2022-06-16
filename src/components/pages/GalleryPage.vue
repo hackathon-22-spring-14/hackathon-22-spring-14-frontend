@@ -90,9 +90,6 @@ html {
 
   /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;
-
-  margin-left: -8px;
-  margin-right: -8px;
 }
 
 .cards-item {
