@@ -16,9 +16,7 @@ export default defineComponent({
   mounted() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    const [red, green, blue] = this.colors
-    ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
-    ctx.strokeRect(0, 0, canvas.width, canvas.height)
+    this.rewrite(ctx, canvas.width, canvas.height)
 
     watch(
       () => this.text,
