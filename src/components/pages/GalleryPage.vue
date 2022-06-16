@@ -26,17 +26,12 @@ export default defineComponent({
       stampsInfo,
     }
   },
-  data() {
-    return {
-      cards: 1,
-    }
-  },
   methods: {
     addCard() {
-      this.cards = this.cards + 1
+      this.stampsInfo.push(this.stampsInfo[0])
     },
     reset() {
-      this.cards = 1
+      this.stampsInfo = [this.stampsInfo[0]]
     },
   },
 })
