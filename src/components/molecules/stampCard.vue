@@ -20,7 +20,12 @@ import axios from 'axios'
 
 export default {
   name: 'StampCard',
-  props: ['num'],
+  props: {
+    num: {
+      type: Number,
+      required: true
+    },
+  },
   data() {
     return {
       info: [],
