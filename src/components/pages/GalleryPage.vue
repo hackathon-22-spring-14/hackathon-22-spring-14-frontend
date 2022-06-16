@@ -1,16 +1,34 @@
-<script setup lang="ts">
+<script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from '../organisms/MasterHeader.vue'
-import Footer from '../organisms/MasterFooter.vue'
+import { defineComponent, Ref, ref } from 'vue'
+import { Stamp } from '../../lib/apis/generated'
+import { api } from '../../utils/api'
+import MasterHeader from '../organisms/MasterHeader.vue'
 import Card from '../molecules/StampCard.vue'
-</script>
+import MasterFooter from '../organisms/MasterFooter.vue'
 
-<script lang="ts">
-export default {
-  name: 'App',
+export default defineComponent({
+  name: 'GalleryPage',
   components: {
+    MasterHeader,
     Card,
+    MasterFooter,
+  },
+  setup() {
+    const stampsInfo: Ref<Stamp[]> = ref([])
+    ;(async () => {
+      try {
+        const { data } = await api.getStamps()
+        stampsInfo.value = data
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+
+    return {
+      stampsInfo,
+    }
   },
   data() {
     return {
@@ -25,11 +43,11 @@ export default {
       this.cards = 1
     },
   },
-}
+})
 </script>
 
 <template>
-  <Header></Header>
+  <MasterHeader />
   <div>
     <p>
       <button style="background-color: whitesmoke" @click="addCard">
@@ -44,13 +62,17 @@ export default {
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div v-for="number in cards" :key="number" class="cards-item">
-      <Card :num="number"></Card>
-    </div>
+    <Card
+      v-for="(stamp, index) in stampsInfo"
+      :key="index"
+      :num="index + 1"
+      :image="stamp.image ? stamp.image : '../../assets/IMG_1122.JPG'"
+      :name="stamp.name!"
+    />
 
     <!-- Repeat other cards -->
   </div>
-  <Footer></Footer>
+  <MasterFooter />
 </template>
 
 <style>
