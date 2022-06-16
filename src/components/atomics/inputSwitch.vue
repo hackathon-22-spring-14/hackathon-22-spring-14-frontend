@@ -1,9 +1,9 @@
 <template>
   <label class="label">
-    <input type="checkbox" class="label__input" />
+    <input type="checkbox" class="label-input" />
 
     <!-- Circle -->
-    <div class="label__circle"></div>
+    <div class="label-circle"></div>
   </label>
 </template>
 
@@ -35,12 +35,12 @@ export default {
   justify-content: flex-end;
 }
 
-.label__input {
+.label-input {
   /* Hide the input */
   display: none;
 }
 
-.label__circle {
+.label-circle {
   /* Rounded border */
   border-radius: 9999px;
 

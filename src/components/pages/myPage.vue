@@ -11,13 +11,13 @@ import Card from '../molecules/stampCard.vue'
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div class="cards__item">
+    <div class="cards-item">
       <Card num="1"></Card>
     </div>
-    <div class="cards__item">
+    <div class="cards-item">
       <Card num="2"></Card>
     </div>
-    <div class="cards__item">
+    <div class="cards-item">
       <Card num="3"></Card>
     </div>
 
@@ -57,7 +57,7 @@ html {
   margin-right: -8px;
 }
 
-.cards__item {
+.cards-item {
   /* There will be 4 cards per row */
   flex-basis: 170px;
   padding: 10px;

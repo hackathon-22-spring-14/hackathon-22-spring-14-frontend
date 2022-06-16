@@ -44,7 +44,7 @@ export default {
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div v-for="number in cards" :key="number" class="cards__item">
+    <div v-for="number in cards" :key="number" class="cards-item">
       <Card :num="number"></Card>
     </div>
 
@@ -84,7 +84,7 @@ html {
   margin-right: -8px;
 }
 
-.cards__item {
+.cards-item {
   /* There will be 4 cards per row */
   flex-basis: 170px;
   padding: 10px;

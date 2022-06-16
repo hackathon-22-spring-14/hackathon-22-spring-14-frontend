@@ -9,7 +9,7 @@
 export default {}
 </script>
 
-<style>
+<style scoped>
 .upload-label {
   display: inline-block;
   cursor: pointer; /* カーソルを指に */
