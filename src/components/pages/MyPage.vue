@@ -1,21 +1,32 @@
-<script setup lang="ts">
+<script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+import { defineComponent } from 'vue'
 import Card from '../molecules/StampCard.vue'
+
+export default defineComponent({
+  name: 'MyPage',
+  components: {
+    Card,
+  },
+  setup() {
+    return {
+      nums: [1, 2, 3],
+    }
+  },
+})
 </script>
 
 <template>
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div class="cards-item">
-      <Card num="1"></Card>
-    </div>
-    <div class="cards-item">
-      <Card num="2"></Card>
-    </div>
-    <div class="cards-item">
-      <Card num="3"></Card>
+    <div v-for="(num, index) in nums" :key="index">
+      <Card
+        :num="num"
+        :image="'https://q.trap.jp/api/v3/public/icon/inu_warabi'"
+        :name="'スタンプ' + num"
+      ></Card>
     </div>
 
     <!-- Repeat other cards -->
