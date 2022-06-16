@@ -4,16 +4,12 @@
 import { defineComponent, Ref, ref } from 'vue'
 import { Stamp } from '../../lib/apis/generated'
 import { api } from '../../utils/api'
-import MasterHeader from '../organisms/MasterHeader.vue'
 import Card from '../molecules/StampCard.vue'
-import MasterFooter from '../organisms/MasterFooter.vue'
 
 export default defineComponent({
   name: 'GalleryPage',
   components: {
-    MasterHeader,
     Card,
-    MasterFooter,
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
@@ -47,7 +43,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <MasterHeader />
   <div>
     <p>
       <button style="background-color: whitesmoke" @click="addCard">
@@ -72,7 +67,6 @@ export default defineComponent({
 
     <!-- Repeat other cards -->
   </div>
-  <MasterFooter />
 </template>
 
 <style>

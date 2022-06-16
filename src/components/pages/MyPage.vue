@@ -1,13 +1,10 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from '../organisms/MasterHeader.vue'
-import Footer from '../organisms/MasterFooter.vue'
 import Card from '../molecules/StampCard.vue'
 </script>
 
 <template>
-  <Header></Header>
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
@@ -23,7 +20,6 @@ import Card from '../molecules/StampCard.vue'
 
     <!-- Repeat other cards -->
   </div>
-  <Footer></Footer>
 </template>
 
 <style>
