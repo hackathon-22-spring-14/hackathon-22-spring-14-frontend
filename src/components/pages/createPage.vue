@@ -3,18 +3,12 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Header from '../organisms/masterHeader.vue'
 import Footer from '../organisms/masterFooter.vue'
-import SettingText from '../molecules/settingText.vue'
-import SettingBackground from '../molecules/settingBackground.vue'
-import SettingEffects from '../molecules/settingEffects.vue'
+import StampGenerator from '../organisms/stampGenerator.vue'
 </script>
 
 <template>
   <Header></Header>
-  <div class="setting-box">
-    <SettingText></SettingText>
-    <SettingBackground></SettingBackground>
-    <SettingEffects></SettingEffects>
-  </div>
+  <StampGenerator></StampGenerator>
   <Footer></Footer>
 </template>
 
@@ -36,10 +30,5 @@ import SettingEffects from '../molecules/settingEffects.vue'
 
 html {
   padding: 0;
-}
-
-.setting-box {
-  display: flex;
-  justify-content: center;
 }
 </style>
