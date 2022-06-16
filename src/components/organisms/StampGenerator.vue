@@ -47,7 +47,7 @@ export default defineComponent({
       const lines = this.text.replace(/\r/g, '').split('\n')
 
       for (let i = 0; i < lines.length; i++) {
-        // 横幅から
+        // 横幅から倍率を決定
         const text_width = ctx.measureText(lines[i]).width
         if (text_width === 0) {
           continue
@@ -60,13 +60,7 @@ export default defineComponent({
       }
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
-    },
-    save_png() {
-      // TODO
-    },
-    save_gif() {
-      // TODO
-    },
+    }
   },
 })
 </script>
