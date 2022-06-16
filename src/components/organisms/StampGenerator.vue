@@ -1,5 +1,11 @@
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, watch } from 'vue'
+import InputFile from '../atomics/InputFile.vue'
+
+export default defineComponent({
+  components: {
+    InputFile,
+  },
   data() {
     return {
       text: 'うし',
@@ -7,49 +13,39 @@ export default {
       colors: [0, 0, 0],
     }
   },
-  watch: {
-    text: function () {
-      this.rewrite()
-    },
-    picked: function () {
-      this.rewrite()
-    },
-  },
   mounted() {
-    this.canvas = document.getElementById('canvas')
-    this.ctx = this.canvas.getContext('2d')
-    this.ctx.strokeStyle =
-      'rgb(' +
-      this.colors[0] +
-      ',' +
-      this.colors[1] +
-      ',' +
-      this.colors[2] +
-      ')'
-    this.ctx.strokeRect(10, 10, 100, 100)
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    const [red, green, blue] = this.colors
+    ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
+
+    watch(
+      () => this.text,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+    watch(
+      () => this.picked,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
   },
   methods: {
-    rewrite() {
+    rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
       // 全体をクリア
-      this.ctx.clearRect(0, 0, 400, 400)
+      ctx.clearRect(0, 0, w, h)
       if (this.text === '') {
         return
       }
       // // 横幅を取得
       // const text_width = this.ctx.measureText(this.text).width
       // 横幅に合わせて、横方向の倍率を調整
-      this.ctx.scale(1, 1)
+      // ctx.scale(1, 1)
       // 描画
-      this.ctx.font = 'bold 48px ' + this.picked
-      this.ctx.strokeStyle =
-        'rgb(' +
-        this.colors[0] +
-        ',' +
-        this.colors[1] +
-        ',' +
-        this.colors[2] +
-        ')'
-      this.ctx.fillText(this.text, 0, 48)
+      const [red, green, blue] = this.colors
+      ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
+      ctx.font = 'bold 48px ' + this.picked
+      ctx.fillText(this.text, 0, 48)
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
     },
@@ -60,17 +56,12 @@ export default {
       // TODO
     },
   },
-}
-</script>
-
-<script setup>
-import File from '../atomics/InputFile.vue'
+})
 </script>
 
 <template>
   <div class="preview">
-    <canvas id="canvas" width="300" height="300" class="main-canvas"></canvas
-    ><br />
+    <canvas id="canvas" width="300" height="300" class="main-canvas"></canvas>
   </div>
 
   <div class="setting-box">
@@ -88,7 +79,7 @@ import File from '../atomics/InputFile.vue'
 
     <div class="setting-background">
       <p class="box-title">BACKGROUND</p>
-      <File class="input-file"></File>
+      <InputFile />
     </div>
 
     <div class="setting-effects">
