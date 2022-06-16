@@ -37,27 +37,30 @@ export default defineComponent({
       if (this.text === '') {
         return
       }
-      // // 横幅を取得
-      // const text_width = this.ctx.measureText(this.text).width
-      // 横幅に合わせて、横方向の倍率を調整
-      // ctx.scale(1, 1)
+
       // 描画
       const [red, green, blue] = this.colors
       ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
-      ctx.font = 'bold 48px ' + this.picked
+      ctx.font = `bold ${w}px ${this.picked}`
+      ctx.textBaseline = 'top'
+
       const lines = this.text.replace(/\r/g, '').split('\n')
+
       for (let i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], 0, 48 * (i + 1))
+        // 横幅から倍率を決定
+        const textWidth = ctx.measureText(lines[i]).width
+        if (textWidth === 0) {
+          continue
+        }
+        const ratio = w / textWidth
+
+        ctx.scale(ratio, 1 / lines.length)
+        ctx.fillText(lines[i], 0, w * i)
+        ctx.scale(1 / ratio, lines.length)
       }
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
-    },
-    save_png() {
-      // TODO
-    },
-    save_gif() {
-      // TODO
-    },
+    }
   },
 })
 </script>
