@@ -52,7 +52,7 @@ export default defineComponent({
         if (textWidth === 0) {
           continue
         }
-        const ratio = w / text_width
+        const ratio = w / textWidth
 
         ctx.scale(ratio, 1 / lines.length)
         ctx.fillText(lines[i], 0, w * i)
