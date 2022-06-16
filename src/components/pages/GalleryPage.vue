@@ -4,16 +4,12 @@
 import { defineComponent, Ref, ref } from 'vue'
 import { Stamp } from '../../lib/apis/generated'
 import { api } from '../../utils/api'
-import MasterHeader from '../organisms/MasterHeader.vue'
 import Card from '../molecules/StampCard.vue'
-import MasterFooter from '../organisms/MasterFooter.vue'
 
 export default defineComponent({
   name: 'GalleryPage',
   components: {
-    MasterHeader,
     Card,
-    MasterFooter,
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
@@ -30,24 +26,18 @@ export default defineComponent({
       stampsInfo,
     }
   },
-  data() {
-    return {
-      cards: 1,
-    }
-  },
   methods: {
     addCard() {
-      this.cards = this.cards + 1
+      this.stampsInfo.push(this.stampsInfo[0])
     },
     reset() {
-      this.cards = 1
+      this.stampsInfo = [this.stampsInfo[0]]
     },
   },
 })
 </script>
 
 <template>
-  <MasterHeader />
   <div>
     <p>
       <button style="background-color: whitesmoke" @click="addCard">
@@ -72,7 +62,6 @@ export default defineComponent({
 
     <!-- Repeat other cards -->
   </div>
-  <MasterFooter />
 </template>
 
 <style>
@@ -101,9 +90,6 @@ html {
 
   /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;
-
-  margin-left: -8px;
-  margin-right: -8px;
 }
 
 .cards-item {

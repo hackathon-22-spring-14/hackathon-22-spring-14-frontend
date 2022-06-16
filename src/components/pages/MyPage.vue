@@ -1,29 +1,36 @@
-<script setup lang="ts">
+<script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Header from '../organisms/MasterHeader.vue'
-import Footer from '../organisms/MasterFooter.vue'
+import { defineComponent } from 'vue'
 import Card from '../molecules/StampCard.vue'
+
+export default defineComponent({
+  name: 'MyPage',
+  components: {
+    Card,
+  },
+  setup() {
+    return {
+      nums: [1, 2, 3],
+    }
+  },
+})
 </script>
 
 <template>
-  <Header></Header>
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div class="cards-item">
-      <Card num="1"></Card>
-    </div>
-    <div class="cards-item">
-      <Card num="2"></Card>
-    </div>
-    <div class="cards-item">
-      <Card num="3"></Card>
+    <div v-for="(num, index) in nums" :key="index">
+      <Card
+        :num="num"
+        :image="'https://q.trap.jp/api/v3/public/icon/inu_warabi'"
+        :name="'スタンプ' + num"
+      ></Card>
     </div>
 
     <!-- Repeat other cards -->
   </div>
-  <Footer></Footer>
 </template>
 
 <style>
@@ -52,9 +59,6 @@ html {
 
   /* Put a card in the next row when previous cards take all width */
   flex-wrap: wrap;
-
-  margin-left: -8px;
-  margin-right: -8px;
 }
 
 .cards-item {

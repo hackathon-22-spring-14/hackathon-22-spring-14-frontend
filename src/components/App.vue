@@ -1,6 +1,22 @@
 <template>
+  <MasterHeader />
   <router-view />
+  <MasterFooter />
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import MasterFooter from './organisms/MasterFooter.vue'
+import MasterHeader from './organisms/MasterHeader.vue'
+
+export default defineComponent({
+  name: 'App',
+  components: {
+    MasterHeader,
+    MasterFooter,
+  },
+})
+</script>
 
 <style>
 :root {
@@ -20,5 +36,10 @@
 
 html {
   padding: 0;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
 }
 </style>
