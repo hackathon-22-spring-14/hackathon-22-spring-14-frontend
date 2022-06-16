@@ -48,8 +48,8 @@ export default defineComponent({
 
       for (let i = 0; i < lines.length; i++) {
         // 横幅から倍率を決定
-        const text_width = ctx.measureText(lines[i]).width
-        if (text_width === 0) {
+        const textWidth = ctx.measureText(lines[i]).width
+        if (textWidth === 0) {
           continue
         }
         const ratio = w / text_width
