@@ -60,7 +60,7 @@ export default defineComponent({
       }
       // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
       // this.ctx.strokeText(text,0,0)
-    }
+    },
   },
 })
 </script>
