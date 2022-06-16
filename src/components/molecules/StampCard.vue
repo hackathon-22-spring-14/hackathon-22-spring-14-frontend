@@ -4,42 +4,37 @@
     <div class="card-cover">
       <!--仮のテキストを置いています-->
       <!--<div class="stamp_name">{{info.name}}</div>-->
-      <p class="card-title">No.{{ num }} : StampName</p>
+      <p class="card-title">No.{{ num.toString() }} : {{ name }}</p>
       <!--テストのために仮の画像を置いています-->
-      <img class="card-image" src="../../assets/IMG_1122.JPG" />
+      <img class="card-image" :src="image" />
       <!--<img src="data:image/png;base64,{{ info.image }}" />-->
     </div>
 
     <!-- Content -->
-    <div class="card-content">updated: {{ info }}</div>
+    <!-- <div class="card-content">updated: {{ stampInfo?.name }}</div> -->
   </div>
 </template>
 
-<script>
-import axios from 'axios'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'StampCard',
   props: {
     num: {
       type: Number,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
   },
-  data() {
-    return {
-      info: [],
-      error: [],
-    }
-  },
-  mounted() {
-    axios
-      /** .get('サーバーのURL(?)') */
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then((response) => (this.info = response.data.time.updated))
-      .catch((e) => (this.error = e))
-  },
-}
+})
 </script>
 
 <style scoped>
