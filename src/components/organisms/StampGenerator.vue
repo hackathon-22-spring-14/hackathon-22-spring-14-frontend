@@ -1,6 +1,4 @@
 <script>
-import { ref, VueElement } from 'vue'
-
 export default {
   data() {
     return {
@@ -37,8 +35,8 @@ export default {
       if (this.text === '') {
         return
       }
-      // 横幅を取得
-      const text_width = this.ctx.measureText(this.text).width
+      // // 横幅を取得
+      // const text_width = this.ctx.measureText(this.text).width
       // 横幅に合わせて、横方向の倍率を調整
       this.ctx.scale(1, 1)
       // 描画

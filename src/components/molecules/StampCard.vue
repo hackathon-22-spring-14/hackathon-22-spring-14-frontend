@@ -23,7 +23,7 @@ export default {
   props: {
     num: {
       type: Number,
-      required: true
+      required: true,
     },
   },
   data() {
