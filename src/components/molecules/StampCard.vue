@@ -2,8 +2,6 @@
   <div id="stampCard" class="card">
     <!-- Cover -->
     <div class="card-cover">
-      <!--仮のテキストを置いています-->
-      <!--<div class="stamp_name">{{info.name}}</div>-->
       <p class="card-title">No.{{ num.toString() }} : {{ name }}</p>
       <!--テストのために仮の画像を置いています-->
       <img class="card-image" :src="image" />
@@ -11,7 +9,6 @@
     </div>
 
     <!-- Content -->
-    <!-- <div class="card-content">updated: {{ stampInfo?.name }}</div> -->
   </div>
 </template>
 
