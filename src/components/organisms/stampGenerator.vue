@@ -92,7 +92,7 @@ import File from '../atomics/inputFile.vue'
       <p class="box-title">BACKGROUND</p>
       <File class="input-file"></File>
     </div>
-    
+
     <div class="setting-effects">
       <p class="box-title">EFFECTS</p>
     </div>
