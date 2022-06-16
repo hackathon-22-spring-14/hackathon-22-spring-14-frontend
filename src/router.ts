@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Create from './components/pages/createPage.vue'
-import Gallery from './components/pages/galleryPage.vue'
-import Mypage from './components/pages/myPage.vue'
+import Create from './components/pages/CreatePage.vue'
+import Gallery from './components/pages/GalleryPage.vue'
+import Mypage from './components/pages/MyPage.vue'
 
 const routes = [
   { path: '/', name: 'createPage', component: Create },

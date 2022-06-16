@@ -66,7 +66,7 @@ export default {
 </script>
 
 <script setup>
-import File from '../atomics/inputFile.vue'
+import File from '../atomics/InputFile.vue'
 </script>
 
 <template>
