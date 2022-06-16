@@ -65,7 +65,7 @@ export default defineComponent({
     <Card
       v-for="(stamp, index) in stampsInfo"
       :key="index"
-      :num="index+1"
+      :num="index + 1"
       :image="stamp.image ? stamp.image : '../../assets/IMG_1122.JPG'"
       :name="stamp.name!"
     />
