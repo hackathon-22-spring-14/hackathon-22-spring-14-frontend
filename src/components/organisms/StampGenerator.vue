@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue'
+import { api } from '../../utils/api'
 import InputFile from '../atomics/InputFile.vue'
 
 export default defineComponent({
@@ -11,12 +12,15 @@ export default defineComponent({
       text: 'うし',
       picked: 'fantasy',
       colors: [0, 0, 0],
+      title: '',
     }
   },
   mounted() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    this.rewrite(ctx, canvas.width, canvas.height)
+    const [red, green, blue] = this.colors
+    ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
 
     watch(
       () => this.text,
@@ -25,6 +29,11 @@ export default defineComponent({
 
     watch(
       () => this.picked,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+    watch(
+      () => this.colors,
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
   },
@@ -38,7 +47,7 @@ export default defineComponent({
 
       // 描画
       const [red, green, blue] = this.colors
-      ctx.strokeStyle = `rgb(${red}, ${green}, ${blue})`
+      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
       ctx.font = `bold ${w}px ${this.picked}`
       ctx.textBaseline = 'top'
 
@@ -56,14 +65,23 @@ export default defineComponent({
         ctx.fillText(lines[i], 0, w * i)
         ctx.scale(1 / ratio, lines.length)
       }
-      // this.ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
-      // this.ctx.strokeText(text,0,0)
+    },
+    // TODO: pagesに移動させる
+    createStamp() {
+      const canvas = document.getElementById('canvas') as HTMLCanvasElement
+      const imageUrl = canvas.toDataURL('image/png')
+      try {
+        api.createStamp(this.title, imageUrl)
+      } catch (e) {
+        console.error(e)
+      }
     },
   },
 })
 </script>
 
 <template>
+  <input v-model="title" placeholder="スタンプの名前を入力" />
   <div class="preview">
     <canvas id="canvas" width="300" height="300" class="main-canvas"></canvas>
   </div>
@@ -79,6 +97,14 @@ export default defineComponent({
         <input v-model="picked" type="radio" value="fantasy" />
         <label for="fantasy">fantasy</label>
       </div>
+      <input v-model="colors[0]" type="range" min="0" max="255" />Red
+      {{ colors[0] }}
+      <br />
+      <input v-model="colors[1]" type="range" min="0" max="255" />Green
+      {{ colors[1] }}
+      <br />
+      <input v-model="colors[2]" type="range" min="0" max="255" />Blue
+      {{ colors[2] }}
     </div>
 
     <div class="setting-background">
@@ -88,6 +114,10 @@ export default defineComponent({
 
     <div class="setting-effects">
       <p class="box-title">EFFECTS</p>
+    </div>
+
+    <div class="upload-section">
+      <button @click="createStamp">Upload</button>
     </div>
   </div>
 </template>
@@ -130,5 +160,9 @@ export default defineComponent({
   background-color: rgb(100, 100, 100);
   flex-basis: 30%;
   margin: 5px;
+}
+
+.upload-section {
+  display: flex;
 }
 </style>
