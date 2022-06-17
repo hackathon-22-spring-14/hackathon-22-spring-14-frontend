@@ -53,7 +53,7 @@ export default defineComponent({
       const lines = this.text.replace(/\r/g, '').split('\n')
 
       for (let i = 0; i < lines.length; i++) {
-        // 横幅から
+        // 横幅から倍率を決定
         const textWidth = ctx.measureText(lines[i]).width
         if (textWidth === 0) {
           continue
