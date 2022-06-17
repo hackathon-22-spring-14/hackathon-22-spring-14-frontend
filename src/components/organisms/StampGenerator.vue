@@ -2,9 +2,11 @@
 import { defineComponent, watch } from 'vue'
 import { api } from '../../utils/api'
 import InputFile from '../atomics/InputFile.vue'
+import CanvasPreview from '../atomics/CanvasPreview.vue'
 
 export default defineComponent({
   components: {
+    CanvasPreview,
     InputFile,
   },
   data() {
@@ -84,7 +86,7 @@ export default defineComponent({
 <template>
   <input v-model="title" placeholder="スタンプの名前を入力" />
   <div class="preview">
-    <canvas id="canvas" width="300" height="300" class="main-canvas"></canvas>
+    <CanvasPreview />
   </div>
 
   <div class="setting-box">
@@ -124,11 +126,6 @@ export default defineComponent({
 </template>
 
 <style scoped>
-#canvas {
-  border: 1px solid black;
-  background-color: white;
-  margin: 10px;
-}
 .preview {
   background-color: whitesmoke;
   display: flex;
