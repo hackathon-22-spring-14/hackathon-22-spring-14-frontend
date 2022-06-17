@@ -1,10 +1,12 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue'
 import InputFile from '../atomics/InputFile.vue'
+import PulldownSelect from '../atomics/PulldownSelect.vue'
 
 export default defineComponent({
   components: {
     InputFile,
+    PulldownSelect
   },
   data() {
     return {
@@ -71,13 +73,15 @@ export default defineComponent({
     <div class="setting-text">
       <p class="box-title">TEXT</p>
       <textarea v-model="text" class="main-textarea"></textarea>
+      <!--
       <div id="v-model-radiobutton">
         <input v-model="picked" type="radio" value="san-serif" />
         <label for="san-serif">san-serif</label>
         <br />
         <input v-model="picked" type="radio" value="fantasy" />
         <label for="fantasy">fantasy</label>
-      </div>
+      </div>-->
+        <PulldownSelect :options="['san-serif', 'fantasy']" placeholder="Fontselect" @selected="picked=$event"/>
     </div>
 
     <div class="setting-background">
