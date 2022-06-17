@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue'
+import { api } from '../../utils/api'
 import InputFile from '../atomics/InputFile.vue'
 
 export default defineComponent({
@@ -65,6 +66,16 @@ export default defineComponent({
         ctx.scale(1 / ratio, lines.length)
       }
     },
+    // TODO: pagesに移動させる
+    createStamp() {
+      const canvas = document.getElementById('canvas') as HTMLCanvasElement
+      const imageUrl = canvas.toDataURL('image/png')
+      try {
+        api.createStamp(this.title, imageUrl)
+      } catch (e) {
+        console.error(e)
+      }
+    },
   },
 })
 </script>
@@ -106,7 +117,7 @@ export default defineComponent({
     </div>
 
     <div class="upload-section">
-      <button @click="text += '\nUploaded'">Upload</button>
+      <button @click="createStamp">Upload</button>
     </div>
   </div>
 </template>
