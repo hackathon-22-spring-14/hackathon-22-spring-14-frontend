@@ -6,7 +6,7 @@ import PulldownSelect from '../atomics/PulldownSelect.vue'
 export default defineComponent({
   components: {
     InputFile,
-    PulldownSelect
+    PulldownSelect,
   },
   data() {
     return {
@@ -81,7 +81,11 @@ export default defineComponent({
         <input v-model="picked" type="radio" value="fantasy" />
         <label for="fantasy">fantasy</label>
       </div>-->
-        <PulldownSelect :options="['san-serif', 'fantasy']" placeholder="Fontselect" @selected="picked=$event"/>
+      <PulldownSelect
+        :options="['san-serif', 'fantasy']"
+        placeholder="Fontselect"
+        @selected="picked = $event"
+      />
     </div>
 
     <div class="setting-background">

@@ -8,7 +8,13 @@
       <option value="" hidden>{{ placeholder }}</option>
 
       <!-- normal options -->
-        <option v-for="index in options.length" :key="index" :value="options[index-1]">{{ options[index-1] }}</option>
+      <option
+        v-for="index in options.length"
+        :key="index"
+        :value="options[index - 1]"
+      >
+        {{ options[index - 1] }}
+      </option>
     </select>
   </div>
 </template>
@@ -24,26 +30,25 @@ export default defineComponent({
       required: true,
     },
     placeholder: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
   },
   data: function () {
     return {
-      modelValue: ""
-    };
+      modelValue: '',
+    }
   },
   methods: {
     send() {
-      this.$emit("selected", this.modelValue)
-    }
-  }
-  }
-)
+      this.$emit('selected', this.modelValue)
+    },
+  },
+})
 </script>
 
 <style scoped>
-[include*="form-input-select()"] {
+[include*='form-input-select()'] {
   display: block;
   padding: 0;
   position: relative;
@@ -55,7 +60,7 @@ export default defineComponent({
      The percentage width is a fallback since FF 4+ supports calc() so we can just add a fixed amount of extra width to push the native arrow out of view. We're applying this hack across all FF versions because all the previous hacks were too fragile and complex.
      You might want to consider not using this hack and using the native select arrow in FF. Note this makes the menus wider than the select button because they display at the specified width and aren't clipped. Targeting hack via http://browserhacks.com/#hack-758bff81c5c32351b02e10480b5ed48e */
   /* Show only the native arrow */
-  color: #005BA6;
+  color: #005ba6;
   display: block;
   border-radius: 0;
   box-shadow: none;
@@ -64,17 +69,18 @@ export default defineComponent({
   margin-bottom: 15px;
   width: 100%;
 }
-[include*="form-input-select()"]::before, [include*="form-input-select()"]::after {
-  content: "";
+[include*='form-input-select()']::before,
+[include*='form-input-select()']::after {
+  content: '';
   display: block;
   position: absolute;
   pointer-events: none;
   z-index: 2;
 }
-[include*="form-input-select()"] select {
+[include*='form-input-select()'] select {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   background: none;
   box-sizing: border-box;
   width: 100%;
@@ -84,51 +90,53 @@ export default defineComponent({
   outline: none;
   /* Focus style */
 }
-[include*="form-input-select()"] select:focus {
+[include*='form-input-select()'] select:focus {
   background-color: transparent;
   outline: none;
 }
-[include*="form-input-select()"] option {
+[include*='form-input-select()'] option {
   font-weight: normal;
 }
-[include*="form-input-select()"] x:-o-prefocus, [include*="form-input-select()"]::after {
+[include*='form-input-select()'] x:-o-prefocus,
+[include*='form-input-select()']::after {
   display: none;
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  [include*="form-input-select()"] select::-ms-expand {
+  [include*='form-input-select()'] select::-ms-expand {
     display: none;
   }
-  [include*="form-input-select()"] select:focus::-ms-value {
+  [include*='form-input-select()'] select:focus::-ms-value {
     background: transparent;
     color: #000;
   }
 }
 @-moz-document url-prefix() {
-  [include*="form-input-select()"] {
+  [include*='form-input-select()'] {
     overflow: hidden;
   }
-  [include*="form-input-select()"] select {
+  [include*='form-input-select()'] select {
     width: 120%;
     width: calc(100% + 3em);
     /* Firefox focus has odd artifacts around the text, this kills that. See https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring */
   }
   @supports (-moz-appearance: none) {
-    [include*="form-input-select()"] select {
+    [include*='form-input-select()'] select {
       width: 100%;
     }
   }
-  [include*="form-input-select()"] select:-moz-focusring {
+  [include*='form-input-select()'] select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000;
   }
 }
 @supports (-moz-appearance: none) {
-  [include*="form-input-select()"] {
+  [include*='form-input-select()'] {
     width: 100%;
   }
 }
-[include*="form-input-select()"]::before, [include*="form-input-select()"]::after {
-  content: "";
+[include*='form-input-select()']::before,
+[include*='form-input-select()']::after {
+  content: '';
   display: block;
   position: absolute;
   pointer-events: none;
@@ -137,39 +145,39 @@ export default defineComponent({
   height: 0;
   right: 16px;
 }
-[include*="form-input-select()"]::before {
+[include*='form-input-select()']::before {
   bottom: 55%;
   border-width: 0 6.5px 8px 6.5px;
-  border-bottom-color: #D6D6D6;
+  border-bottom-color: #d6d6d6;
 }
-[include*="form-input-select()"]::after {
+[include*='form-input-select()']::after {
   border-width: 8px 6.5px 0 6.5px;
-  border-top-color: #D6D6D6;
+  border-top-color: #d6d6d6;
   top: 55%;
 }
 @-moz-document url-prefix() {
-  [include*="form-input-select()"] {
-    border-right: 3px solid #E6E6E6;
+  [include*='form-input-select()'] {
+    border-right: 3px solid #e6e6e6;
   }
-  [include*="form-input-select()"]:hover {
-    border-right: 3px solid #005BA6;
+  [include*='form-input-select()']:hover {
+    border-right: 3px solid #005ba6;
   }
 }
-[include*="form-input-select()"]:hover select {
+[include*='form-input-select()']:hover select {
   box-shadow: 0 2px 3px rgba(0, 91, 166, 0.1) inset;
-  border-color: #005BA6;
+  border-color: #005ba6;
 }
-[include*="form-input-select()"]:hover select:focus {
+[include*='form-input-select()']:hover select:focus {
   outline-color: transparent;
 }
-[include*="form-input-select()"]:hover::before {
-  border-bottom-color: #005BA6;
+[include*='form-input-select()']:hover::before {
+  border-bottom-color: #005ba6;
 }
-[include*="form-input-select()"]:hover::after {
-  border-top-color: #005BA6;
+[include*='form-input-select()']:hover::after {
+  border-top-color: #005ba6;
 }
-[include*="form-input-select()"] select {
-  border: 3px solid #E6E6E6;
+[include*='form-input-select()'] select {
+  border: 3px solid #e6e6e6;
   border-radius: 0;
   font-weight: 400;
   color: inherit;
@@ -177,17 +185,18 @@ export default defineComponent({
   line-height: normal;
   transition: border-color 0.2s ease, outline 0.2s ease;
 }
-[include*="form-input-select()"] select:focus {
+[include*='form-input-select()'] select:focus {
   box-shadow: 0 3px 4px rgba(0, 91, 166, 0.3) inset;
-  outline: 3px solid #005BA6;
+  outline: 3px solid #005ba6;
   outline-offset: -3px;
 }
-[include*="form-input-select()"] select[disabled], [include*="form-input-select()"] select:disabled {
+[include*='form-input-select()'] select[disabled],
+[include*='form-input-select()'] select:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
-[include*="form-input-select()"] select:not(:focus):invalid {
-  color: #C7C7C7;
+[include*='form-input-select()'] select:not(:focus):invalid {
+  color: #c7c7c7;
 }
 
 body {
@@ -198,7 +207,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  border: 1em solid #005BA6;
+  border: 1em solid #005ba6;
 }
 body div {
   max-width: 16em;
@@ -208,7 +217,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 </style>
