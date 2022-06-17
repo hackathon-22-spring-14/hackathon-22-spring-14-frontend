@@ -21,6 +21,7 @@ export default defineComponent({
     const [red, green, blue] = this.colors
     ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
     ctx.strokeRect(0, 0, canvas.width, canvas.height)
+    this.rewrite(ctx, canvas.width, canvas.height)
 
     watch(
       () => this.text,
