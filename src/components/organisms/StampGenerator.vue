@@ -11,13 +11,15 @@ export default defineComponent({
       text: 'うし',
       picked: 'fantasy',
       colors: [0, 0, 0],
-      stampTitle: '',
+      title: '',
     }
   },
   mounted() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    this.rewrite(ctx, canvas.width, canvas.height)
+    const [red, green, blue] = this.colors
+    ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
 
     watch(
       () => this.text,
@@ -30,17 +32,7 @@ export default defineComponent({
     )
 
     watch(
-      () => this.colors[0],
-      () => this.rewrite(ctx, canvas.width, canvas.height)
-    )
-
-    watch(
-      () => this.colors[1],
-      () => this.rewrite(ctx, canvas.width, canvas.height)
-    )
-
-    watch(
-      () => this.colors[2],
+      () => this.colors,
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
   },
@@ -61,7 +53,7 @@ export default defineComponent({
       const lines = this.text.replace(/\r/g, '').split('\n')
 
       for (let i = 0; i < lines.length; i++) {
-        // 横幅から倍率を決定
+        // 横幅から
         const textWidth = ctx.measureText(lines[i]).width
         if (textWidth === 0) {
           continue
@@ -69,10 +61,7 @@ export default defineComponent({
         const ratio = w / textWidth
 
         ctx.scale(ratio, 1 / lines.length)
-        // ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
         ctx.fillText(lines[i], 0, w * i)
-        // ctx.strokeStyle = "rgb("+color_red+","+color_green+","+color_blue+")";
-        // ctx.strokeText(text,0,0)
         ctx.scale(1 / ratio, lines.length)
       }
     },
@@ -81,7 +70,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <input v-model="stampTitle" placeholder="スタンプの名前を入力" />
+  <input v-model="title" placeholder="スタンプの名前を入力" />
   <div class="preview">
     <canvas id="canvas" width="300" height="300" class="main-canvas"></canvas>
   </div>
