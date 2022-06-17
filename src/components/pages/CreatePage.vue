@@ -1,12 +1,129 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import StampGenerator from '../organisms/StampGenerator.vue'
-</script>
-
 <template>
-  <StampGenerator></StampGenerator>
+  <input v-model="title" placeholder="スタンプの名前を入力" />
+  <div class="preview">
+    <CanvasPreview />
+  </div>
+
+  <div class="setting-box">
+    <div class="setting-text">
+      <p class="box-title">TEXT</p>
+      <textarea v-model="text" class="main-textarea"></textarea>
+      <div id="v-model-radiobutton">
+        <input v-model="picked" type="radio" value="san-serif" />
+        <label for="san-serif">san-serif</label>
+        <br />
+        <input v-model="picked" type="radio" value="fantasy" />
+        <label for="fantasy">fantasy</label>
+      </div>
+      <input v-model="colors[0]" type="range" min="0" max="255" />Red
+      {{ colors[0] }}
+      <br />
+      <input v-model="colors[1]" type="range" min="0" max="255" />Green
+      {{ colors[1] }}
+      <br />
+      <input v-model="colors[2]" type="range" min="0" max="255" />Blue
+      {{ colors[2] }}
+    </div>
+
+    <div class="setting-background">
+      <p class="box-title">BACKGROUND</p>
+      <InputFile />
+    </div>
+
+    <div class="setting-effects">
+      <p class="box-title">EFFECTS</p>
+    </div>
+
+    <div class="upload-section">
+      <button @click="createStamp">Upload</button>
+    </div>
+  </div>
 </template>
+
+<script lang="ts">
+import { defineComponent, watch } from 'vue'
+import { api } from '../../utils/api'
+import CanvasPreview from '../atomics/CanvasPreview.vue'
+import InputFile from '../atomics/InputFile.vue'
+
+export default defineComponent({
+  components: {
+    CanvasPreview,
+    InputFile,
+  },
+  data() {
+    return {
+      text: 'うし',
+      picked: 'fantasy',
+      colors: [0, 0, 0],
+      title: '',
+    }
+  },
+  mounted() {
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    const [red, green, blue] = this.colors
+    ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+    ctx.strokeRect(0, 0, canvas.width, canvas.height)
+    this.rewrite(ctx, canvas.width, canvas.height)
+
+    watch(
+      () => this.text,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+    watch(
+      () => this.picked,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+    watch(
+      () => this.colors,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+  },
+  methods: {
+    rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
+      // 全体をクリア
+      ctx.clearRect(0, 0, w, h)
+      if (this.text === '') {
+        return
+      }
+
+      // 描画
+      const [red, green, blue] = this.colors
+      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
+      ctx.font = `bold ${w}px ${this.picked}`
+      ctx.textBaseline = 'top'
+
+      const lines = this.text.replace(/\r/g, '').split('\n')
+
+      for (let i = 0; i < lines.length; i++) {
+        // 横幅から倍率を決定
+        const textWidth = ctx.measureText(lines[i]).width
+        if (textWidth === 0) {
+          continue
+        }
+        const ratio = w / textWidth
+
+        ctx.scale(ratio, 1 / lines.length)
+        ctx.fillText(lines[i], 0, w * i)
+        ctx.scale(1 / ratio, lines.length)
+      }
+    },
+    // TODO: pagesに移動させる
+    createStamp() {
+      const canvas = document.getElementById('canvas') as HTMLCanvasElement
+      const imageUrl = canvas.toDataURL('image/png')
+      try {
+        api.createStamp(this.title, imageUrl)
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  },
+})
+</script>
 
 <style>
 :root {
@@ -26,5 +143,43 @@ import StampGenerator from '../organisms/StampGenerator.vue'
 
 html {
   padding: 0;
+}
+
+.preview {
+  background-color: whitesmoke;
+  display: flex;
+  width: 320px;
+  justify-content: center;
+}
+.setting-box {
+  display: flex;
+  justify-content: center;
+}
+.box-title {
+  background-color: whitesmoke;
+  padding: 5px;
+}
+.setting-text {
+  background-color: rgb(200, 200, 200);
+  flex-basis: 30%;
+  margin: 5px;
+}
+.main-textarea {
+  margin: 5px;
+  border: 2px solid black;
+}
+.setting-background {
+  background-color: rgb(150, 150, 150);
+  flex-basis: 30%;
+  margin: 5px;
+}
+.setting-effects {
+  background-color: rgb(100, 100, 100);
+  flex-basis: 30%;
+  margin: 5px;
+}
+
+.upload-section {
+  display: flex;
 }
 </style>
