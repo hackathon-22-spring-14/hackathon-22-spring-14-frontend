@@ -52,7 +52,18 @@
     <div class="setting-background">
       <div class="box-top"></div>
       <p class="box-title">背景</p>
-      <InputFile />
+      <div style="display: flex; flex-wrap:wrap;">
+        <img
+         v-for="(imgInfo, key) in imgInfos"
+         :id="imgInfo.id"
+         :key="key"
+         :src="imgInfo.src"
+         @click="imgId = `${imgInfo.id}`"
+         style="width: 30%; height: 30%; margin: 5px; box-shadow: var(--standardShadow);"
+       />
+      </div>
+      
+       <InputFile v-model:imgInfosProp="imgInfos"/>
     </div>
 
     <div class="setting-effects">
@@ -84,6 +95,13 @@ export default defineComponent({
       picked: 'fantasy',
       colors: [0, 0, 0],
       title: '',
+      imgId: 'img_null',
+       imgInfos: [
+         { src: '../../../img/null.png', id: 'img_null' },
+         { src: '../../../img/shuchu.png', id: 'shuchu.png' },
+         { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
+       ],
+       imgUploadedIndex: 0,
     }
   },
   mounted() {
@@ -119,11 +137,24 @@ export default defineComponent({
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
 
+     watch(
+       () => this.imgId,
+       () => this.rewrite(ctx, canvas.width, canvas.height)
+     )
+
   },
   methods: {
     rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
       // 全体をクリア
       ctx.clearRect(0, 0, w, h)
+
+       const img = document.getElementById(this.imgId)
+
+       if (img) {
+         ctx.drawImage(img, 0, 0, w, h)
+       }
+
+
       if (this.text === '') {
         return
       }
@@ -179,6 +210,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 10;
+  box-shadow: var(--standardShadow);
 }
 .upload {
   display: flex;
@@ -209,6 +241,7 @@ html {
   background-color: whitesmoke;
   display: flex;
   width: 320px;
+  margin: 5px;
 }
 /**編集ボックス共通の部分 */
 .setting-box {
