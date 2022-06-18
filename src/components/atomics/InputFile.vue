@@ -1,7 +1,7 @@
 <template>
   <label class="upload-label">
     背景画像を選択
-    <input type="file" />
+    <input type="file" @change="loadImage" />
   </label>
 </template>
 
@@ -10,6 +10,21 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputFile',
+  props: ['imgInfos', "imgUploadedIndex"],
+  methods: {
+    loadImage(e) {
+      const now = new Date()
+      const newImgId = "img_"+now.getMinutes().toString()+now.getSeconds().toString()+now.getMilliseconds().toString()
+
+      var reader = new FileReader();
+      var myreader = {...reader, imgInfos: this.imgInfos}
+      myreader.readAsDataURL(e.target.files[0]);
+      myreader.onload = function() {
+        // TODO
+        // this.imgInfos.push({src:reader.result, id:newImgId})
+      }
+    }
+  }
 })
 </script>
 

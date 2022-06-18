@@ -30,11 +30,11 @@
       <img
         v-for="(imgInfo, key) in imgInfos"
         :id="imgInfo.id"
+        :key="key"
         :src="imgInfo.src"
         @click="imgId = `${imgInfo.id}`"
-        :key="key"
       />
-      <InputFile />
+      <InputFile :imgInfos="imgInfos" :imgUploadedIndex="imgUploadedIndex" />
     </div>
 
     <div class="setting-effects">
@@ -70,7 +70,7 @@ export default defineComponent({
         { src: '../../../img/shuchu.png', id: 'shuchu.png' },
         { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
       ],
-      img_uploaded_index: 0,
+      imgUploadedIndex: 0,
     }
   },
   mounted() {
