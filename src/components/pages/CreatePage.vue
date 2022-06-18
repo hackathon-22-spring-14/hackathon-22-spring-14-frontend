@@ -1,17 +1,21 @@
 <template>
-<div id="stamp" class="stamp">
-  <div style="width:fit-content;">
-    <div class="upload">
-    <input v-model="title" placeholder="スタンプの名前を入力" class="stamp-title"/>
-    <div class="upload-section">
-      <button @click="createStamp">投稿</button>
-    </div>
-    </div>
-    <div class="preview">
-      <CanvasPreview />
+  <div id="stamp" class="stamp">
+    <div style="width: fit-content">
+      <div class="upload">
+        <input
+          v-model="title"
+          placeholder="スタンプの名前を入力"
+          class="stamp-title"
+        />
+        <div class="upload-section">
+          <button @click="createStamp">投稿</button>
+        </div>
+      </div>
+      <div class="preview">
+        <CanvasPreview />
+      </div>
     </div>
   </div>
-</div>
   <div class="setting-box">
     <div class="setting-text">
       <div class="box-top"></div>
@@ -23,55 +27,84 @@
       <div class="items">
         <p class="items-title">フォント</p>
         <PulldownSelect
-        :options="['san-serif', 'fantasy']"
-        placeholder="Fontselect"
-        class="pulldown-select"
-        @selected="picked = $event"
+          :options="['san-serif', 'fantasy']"
+          placeholder="Fontselect"
+          class="pulldown-select"
+          @selected="picked = $event"
         />
       </div>
       <div class="items">
         <p class="items-title">文字の色</p>
         <div style="display: flex">
-          <div :style="{'background-color': `rgb(${colors[0]},${colors[1]},${colors[2]})`}" class="color-preview"></div>
+          <div
+            :style="{
+              'background-color': `rgb(${colors[0]},${colors[1]},${colors[2]})`,
+            }"
+            class="color-preview"
+          ></div>
           <div>
-            <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red :
+            <input
+              v-model="colors[0]"
+              type="range"
+              min="0"
+              max="255"
+              class="input-range"
+            />Red :
             {{ colors[0] }}
             <br />
-            <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green :
+            <input
+              v-model="colors[1]"
+              type="range"
+              min="0"
+              max="255"
+              class="input-range"
+            />Green :
             {{ colors[1] }}
             <br />
-            <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue :
+            <input
+              v-model="colors[2]"
+              type="range"
+              min="0"
+              max="255"
+              class="input-range"
+            />Blue :
             {{ colors[2] }}
           </div>
         </div>
-        
       </div>
-      
     </div>
 
     <div class="setting-background">
       <div class="box-top"></div>
       <p class="box-title">背景</p>
-      <div style="display: flex; flex-wrap:wrap;">
+      <div style="display: flex; flex-wrap: wrap">
         <img
-         v-for="(imgInfo, key) in imgInfos"
-         :id="imgInfo.id"
-         :key="key"
-         :src="imgInfo.src"
-         @click="imgId = `${imgInfo.id}`"
-         style="width: 30%; height: 30%; margin: 5px; box-shadow: var(--standardShadow);"
-       />
+          v-for="(imgInfo, key) in imgInfos"
+          :id="imgInfo.id"
+          :key="key"
+          :src="imgInfo.src"
+          style="
+            width: 30%;
+            height: 30%;
+            margin: 5px;
+            box-shadow: var(--standardShadow);
+          "
+          @click="imgId = `${imgInfo.id}`"
+        />
       </div>
-      
-       <InputFile v-model:imgInfosProp="imgInfos"/>
+
+      <InputFile v-model:imgInfosProp="imgInfos" />
     </div>
 
     <div class="setting-effects">
       <div class="box-top"></div>
       <p class="box-title">エフェクト</p>
-    </div>
 
-    
+      <div v-for="(effInfo, key) in effInfos" :key="key">
+        <input v-model="checked" type="checkbox" :value="effInfo.id" />
+        <label :for="effInfo.id">{{ effInfo.name }}</label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,7 +119,7 @@ export default defineComponent({
   components: {
     CanvasPreview,
     InputFile,
-    PulldownSelect
+    PulldownSelect,
   },
   data() {
     return {
@@ -95,64 +128,80 @@ export default defineComponent({
       colors: [0, 0, 0],
       title: '',
       imgId: 'img_null',
-       imgInfos: [
-         { src: '../../../img/null.png', id: 'img_null' },
-         { src: '../../../img/shuchu.png', id: 'shuchu.png' },
-         { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
-       ],
-       imgUploadedIndex: 0,
+      imgInfos: [
+        { src: '../../../img/null.png', id: 'img_null' },
+        { src: '../../../img/shuchu.png', id: 'img_shuchu' },
+        { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
+      ],
+      effInfos: [
+        // { src: '../../../effect/a.ts', id: 'eff_smalltext', name: '小さめの文字'},
+        {
+          src: '../../../effect/b.ts',
+          id: 'eff_shadow',
+          name: '文字に影をつける',
+        },
+      ],
+      checked: [],
     }
   },
   mounted() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
+    const canvasSub = document.createElement('canvas') as HTMLCanvasElement
+    canvasSub.width = canvas.width
+    canvasSub.height = canvas.height
+
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    const ctxSub = canvasSub.getContext('2d') as CanvasRenderingContext2D
     const [red, green, blue] = this.colors
     ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
     ctx.strokeRect(0, 0, canvas.width, canvas.height)
-    this.rewrite(ctx, canvas.width, canvas.height)
+    this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
 
     watch(
       () => this.text,
-      () => this.rewrite(ctx, canvas.width, canvas.height)
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
 
     watch(
       () => this.picked,
-      () => this.rewrite(ctx, canvas.width, canvas.height)
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
 
     watch(
       () => this.colors[0],
-      () => this.rewrite(ctx, canvas.width, canvas.height)
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
 
     watch(
       () => this.colors[1],
-      () => this.rewrite(ctx, canvas.width, canvas.height)
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
 
     watch(
       () => this.colors[2],
-      () => this.rewrite(ctx, canvas.width, canvas.height)
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
 
-     watch(
-       () => this.imgId,
-       () => this.rewrite(ctx, canvas.width, canvas.height)
-     )
-
+    watch(
+      () => this.imgId,
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
+    )
   },
   methods: {
-    rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
+    rewrite(
+      ctx: CanvasRenderingContext2D,
+      ctxSub: CanvasRenderingContext2D,
+      w: number,
+      h: number
+    ) {
       // 全体をクリア
       ctx.clearRect(0, 0, w, h)
 
-       const img = document.getElementById(this.imgId)
+      const img = document.getElementById(this.imgId)
 
-       if (img) {
-         ctx.drawImage(img, 0, 0, w, h)
-       }
-
+      if (img) {
+        ctx.drawImage(img, 0, 0, w, h)
+      }
 
       if (this.text === '') {
         return
@@ -160,11 +209,28 @@ export default defineComponent({
 
       // 描画
       const [red, green, blue] = this.colors
-      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
       ctx.font = `bold ${w}px ${this.picked}`
       ctx.textBaseline = 'top'
 
       const lines = this.text.replace(/\r/g, '').split('\n')
+
+      if (this.checked.includes('eff_shadow')) {
+        ctx.fillStyle = `rgba(0, 0, 0, 127)`
+        for (let i = 0; i < lines.length; i++) {
+          // 横幅から倍率を決定
+          const textWidth = ctx.measureText(lines[i]).width
+          if (textWidth === 0) {
+            continue
+          }
+          const ratio = w / textWidth
+
+          ctx.scale(ratio, 1 / lines.length)
+          ctx.fillText(lines[i], 10, w * i + 10)
+          ctx.scale(1 / ratio, lines.length)
+        }
+      }
+
+      ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`
 
       for (let i = 0; i < lines.length; i++) {
         // 横幅から倍率を決定
@@ -194,9 +260,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 html {
-  padding: 0;;
+  padding: 0;
 }
 /**アップロード部分とプレビュー部分 */
 .stamp {
@@ -234,7 +299,7 @@ html {
   transition: var(--buttonTransition);
 }
 .upload-section:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .preview {
   background-color: whitesmoke;
@@ -287,7 +352,7 @@ html {
   margin: 5px;
   background-color: white;
 }
-.input-range{
+.input-range {
   margin-left: 5px;
 }
 .color-preview {
@@ -311,6 +376,4 @@ html {
   margin: 10px;
   box-shadow: var(--standardShadow);
 }
-
-
 </style>
