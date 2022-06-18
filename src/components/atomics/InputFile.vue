@@ -10,7 +10,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputFile',
-  props: ['imgInfos'],
+  props: ['imgInfos', 'imgUploadedIndex'],
   methods: {
     loadImage(e) {
       const now = new Date()
@@ -21,9 +21,8 @@ export default defineComponent({
         now.getMilliseconds().toString()
 
       const reader = new FileReader()
-      const myreader = { ...reader, imgInfos: this.imgInfos }
-      myreader.readAsDataURL(e.target.files[0])
-      myreader.onload = function () {
+      reader.readAsDataURL(e.target.files[0])
+      reader.onload = function () {
         // TODO
         // this.imgInfos.push({src:reader.result, id:newImgId})
       }
