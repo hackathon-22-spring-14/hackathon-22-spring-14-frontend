@@ -31,7 +31,6 @@ export default defineComponent({
 
 <style scoped>
 footer {
-  box-shadow: var(--standardShadow);
   width: auto;
 }
 </style>
