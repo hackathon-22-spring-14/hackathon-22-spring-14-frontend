@@ -202,13 +202,13 @@ html {
 .stamp {
   display: flex;
   width: auto;
-  margin: 30px 0px 30px 0px;
+  margin: 0px 0px 10px 0px;
   padding: 0px auto;
   background-color: white;
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 5;
   box-shadow: var(--standardShadow);
 }
 .upload {
