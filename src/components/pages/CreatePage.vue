@@ -186,6 +186,11 @@ export default defineComponent({
       () => this.imgId,
       () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
     )
+
+    watch(
+      () => this.checked,
+      () => this.rewrite(ctx, ctxSub, canvas.width, canvas.height)
+    )
   },
   methods: {
     rewrite(
@@ -299,7 +304,7 @@ html {
   transition: var(--buttonTransition);
 }
 .upload-section:hover {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: var(--buttonShadowHover);
 }
 .preview {
   background-color: whitesmoke;
