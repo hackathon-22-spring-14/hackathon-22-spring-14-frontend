@@ -9,7 +9,8 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'InputFile', props: ['imgInfosProp'],
+  name: 'InputFile', 
+  props: ['imgInfosProp'],
    data() {
      return {
        imgInfos: this.imgInfosProp

@@ -73,7 +73,6 @@
 
     
   </div>
-    
 </template>
 
 <script lang="ts">
@@ -263,6 +262,7 @@ html {
   margin: 5px;
   padding: 3px;
 }
+
 .items-title {
   padding-left: 5px;
   background-color: whitesmoke;

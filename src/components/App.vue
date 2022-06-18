@@ -31,15 +31,7 @@ export default defineComponent({
   --secondryDark: #004ba0;
   --textOnPrimary: #ffffff;
   --textOnSecondry: #ffffff;
-  /* テキストについての設定 */
-  --fontSizeTitle: 28px;
-  --fontSizeXLarge: 18px;
-  --fontSizeLarge: 16px;
-  --fontSizeMedium: 14px;
-  --fontSizeSmallIcon: 16px;
-  --fontSizeIcon: 26px;
-  --fontSizePart: 48px;
-  --multilineTextLineHeight: 1.5;
+
   /* 影についての設定 */
   --buttonShadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --buttonTransition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
