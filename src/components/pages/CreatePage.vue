@@ -34,7 +34,7 @@
         :src="imgInfo.src"
         @click="imgId = `${imgInfo.id}`"
       />
-      <InputFile :imgInfos="imgInfos" :imgUploadedIndex="imgUploadedIndex" />
+      <InputFile v-model:imgInfosProp="imgInfos"/>
     </div>
 
     <div class="setting-effects">
@@ -106,11 +106,10 @@ export default defineComponent({
       // 全体をクリア
       ctx.clearRect(0, 0, w, h)
 
-      const img_element = document.getElementById(this.imgId)
+      const img = document.getElementById(this.imgId)
 
-      if (img_element) {
-        // const img_allpath_src = "../../../img/" + img_element.src
-        ctx.drawImage(img_element, 0, 0)
+      if (img) {
+        ctx.drawImage(img, 0, 0, w, h)
       }
 
       if (this.text === '') {

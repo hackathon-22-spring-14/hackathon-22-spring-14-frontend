@@ -10,7 +10,12 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputFile',
-  props: ['imgInfos'],
+  props: ['imgInfosProp'],
+  data() {
+    return {
+      imgInfos: this.imgInfosProp
+    }
+  },
   methods: {
     loadImage(e) {
       const now = new Date()
@@ -22,9 +27,8 @@ export default defineComponent({
 
       const reader = new FileReader()
       reader.readAsDataURL(e.target.files[0])
-      reader.onload = function () {
-        // TODO
-        // this.imgInfos.push({src:reader.result, id:newImgId})
+      reader.onload = () => {
+        this.imgInfos.push({ src: reader.result, id: newImgId })
       }
     },
   },
