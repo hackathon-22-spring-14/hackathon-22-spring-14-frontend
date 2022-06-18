@@ -55,7 +55,7 @@ export default defineComponent({
 .card-cover {
   height: 205px;
   width: 170px;
-  background-color: #6b818e;
+  background-color: whitesmoke;
 }
 
 .card-content {

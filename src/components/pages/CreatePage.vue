@@ -258,16 +258,20 @@ html {
   padding: 5px;
 }
 .items {
-  background-color: rgb(210, 210, 210);
-  margin: 5px;
-  padding: 3px;
+  background-color: white;
+  margin: 15px;
+  padding-bottom: 5px;
+  box-shadow: var(--weakShadow);
+  border-start-start-radius: 5px;
 }
 
 .items-title {
   padding-left: 5px;
-  background-color: whitesmoke;
-  border-bottom: 1px solid black;
+  background-color: var(--primaryLight);
   margin-bottom: 5px;
+  color: var(--textOnPrimary);
+  border-start-start-radius: 5px;
+  border-top: 3px solid var(--primary);
 }
 /* テキスト編集ボックス */
 .setting-text {
@@ -279,9 +283,6 @@ html {
 .main-textarea {
   margin: 5px;
   border: 2px solid rgb(230, 230, 230);
-}
-.font-select {
-  width: fit-content;
 }
 .pulldown-select {
   margin: 5px;
