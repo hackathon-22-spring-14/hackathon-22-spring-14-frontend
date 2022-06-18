@@ -6,11 +6,15 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'MyPage',
+  setup() {
+    return {
+      nums: [1, 2, 3],
+    }
+  },
   data() {
     return {
       username: '',
       password: '',
-      result: '結果がここに返ります'
     }
   },
   methods: {
@@ -18,13 +22,13 @@ export default defineComponent({
       axios.post('/api/users/login', {
         username: this.username,
         password: this.password,
-      }).then(response => (this.result = response.data))
+      })
     },
     signup() {
       axios.post('/api/users/signup', {
         username: this.username,
         password: this.password,
-      }).then(response => (this.result = response.data))
+      })
     },
   },
 })
@@ -36,7 +40,6 @@ export default defineComponent({
   <input v-model="password" type="password" />
   <button @click="login">ログインする</button>
   <button @click="signup">登録する</button>
-  <br/>{{ result }}
 </template>
 
 <style>
