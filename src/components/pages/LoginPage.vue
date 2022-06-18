@@ -10,7 +10,6 @@ export default defineComponent({
     return {
       username: '',
       password: '',
-      result: '結果がここに返ります',
     }
   },
   methods: {
@@ -20,7 +19,7 @@ export default defineComponent({
           username: this.username,
           password: this.password,
         })
-        .then((response) => (this.result = response.data))
+        .then((response) => (console.log(response.data)))
     },
     signup() {
       axios
@@ -28,7 +27,7 @@ export default defineComponent({
           username: this.username,
           password: this.password,
         })
-        .then((response) => (this.result = response.data))
+        .then((response) => (console.log(response.data)))
     },
   },
 })
@@ -40,7 +39,6 @@ export default defineComponent({
   <input v-model="password" type="password" />
   <button @click="login">ログインする</button>
   <button @click="signup">登録する</button>
-  <br />{{ result }}
 </template>
 
 <style>
