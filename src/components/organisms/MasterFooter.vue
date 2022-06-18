@@ -28,3 +28,9 @@ export default defineComponent({
   name: 'MasterFooter',
 })
 </script>
+
+<style scoped>
+footer {
+  width: auto;
+}
+</style>

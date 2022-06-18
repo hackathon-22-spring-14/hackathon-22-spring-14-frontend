@@ -9,37 +9,38 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'InputFile',
+  name: 'InputFile', 
   props: ['imgInfosProp'],
-  data() {
-    return {
-      imgInfos: this.imgInfosProp
-    }
-  },
-  methods: {
-    loadImage(e) {
-      const now = new Date()
-      const newImgId =
-        'img_' +
-        now.getMinutes().toString() +
-        now.getSeconds().toString() +
-        now.getMilliseconds().toString()
+   data() {
+     return {
+       imgInfos: this.imgInfosProp
+     }
+   },
+   methods: {
+     loadImage(e) {
+       const now = new Date()
+       const newImgId =
+         'img_' +
+         now.getMinutes().toString() +
+         now.getSeconds().toString() +
+         now.getMilliseconds().toString()
 
-      const reader = new FileReader()
-      reader.readAsDataURL(e.target.files[0])
-      reader.onload = () => {
-        this.imgInfos.push({ src: reader.result, id: newImgId })
-      }
-    },
-  },
+       const reader = new FileReader()
+       reader.readAsDataURL(e.target.files[0])
+       reader.onload = () => {
+         this.imgInfos.push({ src: reader.result, id: newImgId })
+       }
+     },
+   },
 })
 </script>
 
 <style scoped>
 .upload-label {
   display: inline-block;
+  width: 137px;
   cursor: pointer; /* カーソルを指に */
-  margin: 1em 0; /* まわりの余白 */
+  margin: 1em 1em; /* まわりの余白 */
   padding: 0.7em 1em; /* 文字まわりの余白 */
   line-height: 1.4; /* 行間 */
   background: #ffffff; /* 背景色 */

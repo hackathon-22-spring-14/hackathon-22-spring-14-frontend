@@ -1,49 +1,77 @@
 <template>
-  <input v-model="title" placeholder="スタンプの名前を入力" />
-  <div class="preview">
-    <CanvasPreview />
+<div id="stamp" class="stamp">
+  <div style="width:fit-content;">
+    <div class="upload">
+    <input v-model="title" placeholder="スタンプの名前を入力" class="stamp-title"/>
+    <div class="upload-section">
+      <button @click="createStamp">投稿</button>
+    </div>
+    </div>
+    <div class="preview">
+      <CanvasPreview />
+    </div>
   </div>
-
+</div>
   <div class="setting-box">
     <div class="setting-text">
-      <p class="box-title">TEXT</p>
-      <textarea v-model="text" class="main-textarea"></textarea>
-      <div id="v-model-radiobutton">
-        <input v-model="picked" type="radio" value="san-serif" />
-        <label for="san-serif">san-serif</label>
-        <br />
-        <input v-model="picked" type="radio" value="fantasy" />
-        <label for="fantasy">fantasy</label>
+      <div class="box-top"></div>
+      <p class="box-title">テキスト</p>
+      <div class="items">
+        <p class="items-title">テキストを入力</p>
+        <textarea v-model="text" class="main-textarea"></textarea>
       </div>
-      <input v-model="colors[0]" type="range" min="0" max="255" />Red
-      {{ colors[0] }}
-      <br />
-      <input v-model="colors[1]" type="range" min="0" max="255" />Green
-      {{ colors[1] }}
-      <br />
-      <input v-model="colors[2]" type="range" min="0" max="255" />Blue
-      {{ colors[2] }}
+      <div class="items">
+        <p class="items-title">フォント</p>
+        <PulldownSelect
+        :options="['san-serif', 'fantasy']"
+        placeholder="Fontselect"
+        class="pulldown-select"
+        @selected="picked = $event"
+        />
+      </div>
+      <div class="items">
+        <p class="items-title">文字の色</p>
+        <div style="display: flex">
+          <div :style="{'background-color': `rgb(${colors[0]},${colors[1]},${colors[2]})`}" class="color-preview"></div>
+          <div>
+            <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red :
+            {{ colors[0] }}
+            <br />
+            <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green :
+            {{ colors[1] }}
+            <br />
+            <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue :
+            {{ colors[2] }}
+          </div>
+        </div>
+        
+      </div>
+      
     </div>
 
     <div class="setting-background">
-      <p class="box-title">BACKGROUND</p>
-      <img
-        v-for="(imgInfo, key) in imgInfos"
-        :id="imgInfo.id"
-        :key="key"
-        :src="imgInfo.src"
-        @click="imgId = `${imgInfo.id}`"
-      />
-      <InputFile v-model:imgInfosProp="imgInfos"/>
+      <div class="box-top"></div>
+      <p class="box-title">背景</p>
+      <div style="display: flex; flex-wrap:wrap;">
+        <img
+         v-for="(imgInfo, key) in imgInfos"
+         :id="imgInfo.id"
+         :key="key"
+         :src="imgInfo.src"
+         @click="imgId = `${imgInfo.id}`"
+         style="width: 30%; height: 30%; margin: 5px; box-shadow: var(--standardShadow);"
+       />
+      </div>
+      
+       <InputFile v-model:imgInfosProp="imgInfos"/>
     </div>
 
     <div class="setting-effects">
-      <p class="box-title">EFFECTS</p>
+      <div class="box-top"></div>
+      <p class="box-title">エフェクト</p>
     </div>
 
-    <div class="upload-section">
-      <button @click="createStamp">Upload</button>
-    </div>
+    
   </div>
 </template>
 
@@ -52,11 +80,13 @@ import { defineComponent, watch } from 'vue'
 import { api } from '../../utils/api'
 import CanvasPreview from '../atomics/CanvasPreview.vue'
 import InputFile from '../atomics/InputFile.vue'
+import PulldownSelect from '../atomics/PulldownSelect.vue'
 
 export default defineComponent({
   components: {
     CanvasPreview,
     InputFile,
+    PulldownSelect
   },
   data() {
     return {
@@ -65,12 +95,12 @@ export default defineComponent({
       colors: [0, 0, 0],
       title: '',
       imgId: 'img_null',
-      imgInfos: [
-        { src: '../../../img/null.png', id: 'img_null' },
-        { src: '../../../img/shuchu.png', id: 'shuchu.png' },
-        { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
-      ],
-      imgUploadedIndex: 0,
+       imgInfos: [
+         { src: '../../../img/null.png', id: 'img_null' },
+         { src: '../../../img/shuchu.png', id: 'shuchu.png' },
+         { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
+       ],
+       imgUploadedIndex: 0,
     }
   },
   mounted() {
@@ -92,25 +122,37 @@ export default defineComponent({
     )
 
     watch(
-      () => this.colors,
+      () => this.colors[0],
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
 
     watch(
-      () => this.imgId,
+      () => this.colors[1],
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
+
+    watch(
+      () => this.colors[2],
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+     watch(
+       () => this.imgId,
+       () => this.rewrite(ctx, canvas.width, canvas.height)
+     )
+
   },
   methods: {
     rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
       // 全体をクリア
       ctx.clearRect(0, 0, w, h)
 
-      const img = document.getElementById(this.imgId)
+       const img = document.getElementById(this.imgId)
 
-      if (img) {
-        ctx.drawImage(img, 0, 0, w, h)
-      }
+       if (img) {
+         ctx.drawImage(img, 0, 0, w, h)
+       }
+
 
       if (this.text === '') {
         return
@@ -151,61 +193,124 @@ export default defineComponent({
 })
 </script>
 
-<style>
-:root {
-  /* 色についての設定 */
-  --headerColor: ;
-  --headerShadowColor: rgba(0, 0, 0, 0.2);
-  /* テキストについての設定 */
-  --fontSizeTitle: 28px;
-  --fontSizeXLarge: 18px;
-  --fontSizeLarge: 16px;
-  --fontSizeMedium: 14px;
-  --fontSizeSmallIcon: 16px;
-  --fontSizeIcon: 26px;
-  --fontSizePart: 48px;
-  --multilineTextLineHeight: 1.5;
-}
+<style scoped>
 
 html {
-  padding: 0;
+  padding: 0;;
 }
-
+/**アップロード部分とプレビュー部分 */
+.stamp {
+  display: flex;
+  width: auto;
+  margin: 30px 0px 30px 0px;
+  padding: 0px auto;
+  background-color: white;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--standardShadow);
+}
+.upload {
+  display: flex;
+  width: 310px;
+  justify-content: center;
+  margin: 5px;
+}
+.stamp-title {
+  border-bottom: 2px solid black;
+  margin: 3px;
+}
+.upload-section {
+  display: flex;
+  padding: 2px 7px;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--secondry);
+  color: var(--textOnSecondry);
+  border-radius: 5px;
+  align-items: center;
+  box-shadow: var(--buttonShadow);
+  transition: var(--buttonTransition);
+}
+.upload-section:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 .preview {
   background-color: whitesmoke;
   display: flex;
   width: 320px;
-  justify-content: center;
+  margin: 5px;
 }
+/**編集ボックス共通の部分 */
 .setting-box {
+  flex-wrap: wrap;
   display: flex;
   justify-content: center;
 }
+.box-top {
+  padding: 3px;
+  background-color: var(--primaryDark);
+}
 .box-title {
-  background-color: whitesmoke;
+  background-color: var(--primary);
+  color: var(--textOnPrimary);
   padding: 5px;
 }
-.setting-text {
-  background-color: rgb(200, 200, 200);
-  flex-basis: 30%;
+.items {
+  background-color: rgb(210, 210, 210);
   margin: 5px;
+  padding: 3px;
+}
+
+.items-title {
+  padding-left: 5px;
+  background-color: whitesmoke;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+/* テキスト編集ボックス */
+.setting-text {
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
 .main-textarea {
   margin: 5px;
-  border: 2px solid black;
+  border: 2px solid rgb(230, 230, 230);
 }
+.font-select {
+  width: fit-content;
+}
+.pulldown-select {
+  margin: 5px;
+  background-color: white;
+}
+.input-range{
+  margin-left: 5px;
+}
+.color-preview {
+  height: 50px;
+  width: 50px;
+  border: 2px solid #c7c7c7;
+  padding: 3px;
+  margin: 5px;
+}
+/* 背景編集ボックス */
 .setting-background {
-  background-color: rgb(150, 150, 150);
-  flex-basis: 30%;
-  margin: 5px;
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
+/** エフェクト編集ボックス */
 .setting-effects {
-  background-color: rgb(100, 100, 100);
-  flex-basis: 30%;
-  margin: 5px;
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
 
-.upload-section {
-  display: flex;
-}
+
 </style>

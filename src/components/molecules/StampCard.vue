@@ -1,5 +1,6 @@
 <template>
   <div id="stampCard" class="card">
+    <div class="card-top"></div>
     <!-- Cover -->
     <div class="card-cover">
       <p class="card-title">No.{{ num.toString() }} : {{ name }}</p>
@@ -39,10 +40,16 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   margin: 10px;
+  box-shadow: var(--standardShadow)
+}
+.card-top {
+  height: 5px;
+  background-color: var(--primaryDark);
 }
 .card-title {
-  padding: 5px;
-  background-color: whitesmoke;
+  padding: 5px 5px 5px 10px;
+  background-color: var(--primary);
+  color: var(--textOnPrimary)
 }
 
 .card-cover {

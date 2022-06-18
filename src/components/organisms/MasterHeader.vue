@@ -31,3 +31,10 @@ export default defineComponent({
   name: 'MasterHeader',
 })
 </script>
+
+<style scoped>
+header {
+  box-shadow: var(--standardShadow);
+}
+</style>
+
