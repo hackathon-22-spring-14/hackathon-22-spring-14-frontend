@@ -1,6 +1,11 @@
 <template>
-  <label  class="label">
-    <input v-model="checked" type="checkbox" class="label-input" @change="sendBool" />
+  <label class="label">
+    <input
+      v-model="checked"
+      type="checkbox"
+      class="label-input"
+      @change="sendBool"
+    />
 
     <!-- Circle -->
     <div class="label-circle"></div>
@@ -8,22 +13,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputSwitch',
   data: function () {
     return {
       checked: {
-        default: false
-      }
+        default: false,
+      },
     }
   },
   methods: {
-    sendBool () {
-      this.$emit("changed", this.checked)
-    }
-  }
+    sendBool() {
+      this.$emit('changed', this.checked)
+    },
+  },
 })
 </script>
 
