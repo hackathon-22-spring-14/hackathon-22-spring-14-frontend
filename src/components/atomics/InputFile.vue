@@ -10,7 +10,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'InputFile',
-  props: ['imgInfos', 'imgUploadedIndex'],
+  props: ['imgInfos'],
   methods: {
     loadImage(e) {
       const now = new Date()
