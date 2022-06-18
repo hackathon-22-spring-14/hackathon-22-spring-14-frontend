@@ -6,6 +6,7 @@
       <a
         class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
       >
+        <img src="../../assets/logo.png" class="logo-img"/>
         <span class="ml-3 text-xl">StamQ</span>
       </a>
       <nav
@@ -15,11 +16,6 @@
         <a class="mr-5 hover:text-gray-900" href="/gallery">ギャラリー</a>
         <a class="mr-5 hover:text-gray-900" href="/mypage">マイページ</a>
       </nav>
-      <button
-        class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-      >
-        account
-      </button>
     </div>
   </header>
 </template>
@@ -35,6 +31,10 @@ export default defineComponent({
 <style scoped>
 header {
   box-shadow: var(--standardShadow);
+}
+.logo-img {
+  height: 50px;
+  width: 50px;
 }
 </style>
 
