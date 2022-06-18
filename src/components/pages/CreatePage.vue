@@ -31,14 +31,20 @@
       </div>
       <div class="items">
         <p class="items-title">文字の色</p>
-        <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red
-        {{ colors[0] }}
-        <br />
-        <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green
-        {{ colors[1] }}
-        <br />
-        <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue
-        {{ colors[2] }}
+        <div style="display: flex">
+          <div :style="{'background-color': `rgb(${colors[0]},${colors[1]},${colors[2]})`}" class="color-preview"></div>
+          <div>
+            <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red :
+            {{ colors[0] }}
+            <br />
+            <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green :
+            {{ colors[1] }}
+            <br />
+            <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue :
+            {{ colors[2] }}
+          </div>
+        </div>
+        
       </div>
       
     </div>
@@ -99,9 +105,20 @@ export default defineComponent({
     )
 
     watch(
-      () => this.colors,
+      () => this.colors[0],
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
+
+    watch(
+      () => this.colors[1],
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
+    watch(
+      () => this.colors[2],
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
+
   },
   methods: {
     rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
@@ -235,6 +252,13 @@ html {
 }
 .input-range{
   margin-left: 5px;
+}
+.color-preview {
+  height: 50px;
+  width: 50px;
+  border: 2px solid #c7c7c7;
+  padding: 3px;
+  margin: 5px;
 }
 /* 背景編集ボックス */
 .setting-background {
