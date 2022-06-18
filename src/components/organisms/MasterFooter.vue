@@ -28,3 +28,10 @@ export default defineComponent({
   name: 'MasterFooter',
 })
 </script>
+
+<style scoped>
+footer {
+  box-shadow: var(--standardShadow);
+  width: auto;
+}
+</style>

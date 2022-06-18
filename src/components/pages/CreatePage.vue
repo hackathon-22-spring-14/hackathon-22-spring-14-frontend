@@ -1,14 +1,21 @@
 <template>
-  <input v-model="title" placeholder="スタンプの名前を入力" />
-  <div class="preview">
-    <CanvasPreview />
+<div class="stamp">
+  <div class="upload">
+    <input v-model="title" placeholder="スタンプの名前を入力" class="stamp-title"/>
+    <div class="upload-section">
+      <button @click="createStamp">Upload</button>
+    </div>
   </div>
-
+  <div class="preview">
+      <CanvasPreview />
+  </div>
+</div>
   <div class="setting-box">
     <div class="setting-text">
-      <p class="box-title">TEXT</p>
+      <div class="box-top"></div>
+      <p class="box-title">テキスト</p>
       <textarea v-model="text" class="main-textarea"></textarea>
-      <div id="v-model-radiobutton">
+      <div id="v-model-radiobutton" class="font-select">
         <!--<input v-model="picked" type="radio" value="san-serif" />
         <label for="san-serif">san-serif</label>
         <br />
@@ -17,32 +24,34 @@
         <PulldownSelect
         :options="['san-serif', 'fantasy']"
         placeholder="Fontselect"
+        class="pulldown-select"
         @selected="picked = $event"
       />
       </div>
-      <input v-model="colors[0]" type="range" min="0" max="255" />Red
+      <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red
       {{ colors[0] }}
       <br />
-      <input v-model="colors[1]" type="range" min="0" max="255" />Green
+      <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green
       {{ colors[1] }}
       <br />
-      <input v-model="colors[2]" type="range" min="0" max="255" />Blue
+      <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue
       {{ colors[2] }}
     </div>
 
     <div class="setting-background">
-      <p class="box-title">BACKGROUND</p>
+      <div class="box-top"></div>
+      <p class="box-title">背景</p>
       <InputFile />
     </div>
 
     <div class="setting-effects">
-      <p class="box-title">EFFECTS</p>
+      <div class="box-top"></div>
+      <p class="box-title">エフェクト</p>
     </div>
 
-    <div class="upload-section">
-      <button @click="createStamp">Upload</button>
-    </div>
+    
   </div>
+    
 </template>
 
 <script lang="ts">
@@ -132,61 +141,90 @@ export default defineComponent({
 })
 </script>
 
-<style>
-:root {
-  /* 色についての設定 */
-  --headerColor: ;
-  --headerShadowColor: rgba(0, 0, 0, 0.2);
-  /* テキストについての設定 */
-  --fontSizeTitle: 28px;
-  --fontSizeXLarge: 18px;
-  --fontSizeLarge: 16px;
-  --fontSizeMedium: 14px;
-  --fontSizeSmallIcon: 16px;
-  --fontSizeIcon: 26px;
-  --fontSizePart: 48px;
-  --multilineTextLineHeight: 1.5;
-}
+<style scoped>
 
 html {
-  padding: 0;
+  padding: 0;;
 }
-
+.stamp {
+  width: 300px;
+  margin: 30px 0px 30px 0px;
+  padding: 0px auto;
+  justify-content: center;
+}
+.upload {
+  display: flex;
+  width: 320px;
+  justify-content: center;
+  margin: 5px;
+}
+.stamp-title {
+  border-bottom: 2px solid black;
+  margin: 3px;
+}
+.upload-section {
+  display: flex;
+  padding: 2px 7px;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--secondry);
+  color: var(--textOnSecondry);
+  border-radius: 5px;
+  align-items: center;
+  box-shadow: var(--buttonShadow);
+  transition: var(--buttonTransition);
+}
+.upload-section:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 .preview {
   background-color: whitesmoke;
   display: flex;
   width: 320px;
-  justify-content: center;
 }
 .setting-box {
+  flex-wrap: wrap;
   display: flex;
-  justify-content: center;
+  width: fit-content;
+}
+.box-top {
+  padding: 3px;
+  background-color: var(--primaryDark);
 }
 .box-title {
-  background-color: whitesmoke;
+  background-color: var(--primary);
+  color: var(--textOnPrimary);
   padding: 5px;
 }
 .setting-text {
-  background-color: rgb(200, 200, 200);
-  flex-basis: 30%;
-  margin: 5px;
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
 .main-textarea {
   margin: 5px;
-  border: 2px solid black;
+  border: 2px solid rgb(230, 230, 230);
+}
+.font-select {
+  width: fit-content;
+}
+.pulldown-select {
+  margin: 5px;
+  background-color: white;
 }
 .setting-background {
-  background-color: rgb(150, 150, 150);
-  flex-basis: 30%;
-  margin: 5px;
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
 .setting-effects {
-  background-color: rgb(100, 100, 100);
-  flex-basis: 30%;
-  margin: 5px;
+  background-color: whitesmoke;
+  width: 300px;
+  margin: 10px;
+  box-shadow: var(--standardShadow);
 }
 
-.upload-section {
-  display: flex;
-}
+
 </style>

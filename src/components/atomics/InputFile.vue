@@ -16,8 +16,9 @@ export default defineComponent({
 <style scoped>
 .upload-label {
   display: inline-block;
+  width: 137px;
   cursor: pointer; /* カーソルを指に */
-  margin: 1em 0; /* まわりの余白 */
+  margin: 1em 1em; /* まわりの余白 */
   padding: 0.7em 1em; /* 文字まわりの余白 */
   line-height: 1.4; /* 行間 */
   background: #ffffff; /* 背景色 */
