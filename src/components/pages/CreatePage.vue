@@ -1,5 +1,5 @@
 <template>
-<div class="stamp">
+<div id="stamp" class="stamp">
   <div style="width:fit-content;">
     <div class="upload">
     <input v-model="title" placeholder="スタンプの名前を入力" class="stamp-title"/>
@@ -174,7 +174,11 @@ html {
   width: auto;
   margin: 30px 0px 30px 0px;
   padding: 0px auto;
+  background-color: white;
   justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .upload {
   display: flex;
@@ -210,7 +214,7 @@ html {
 .setting-box {
   flex-wrap: wrap;
   display: flex;
-  width: fit-content;
+  justify-content: center;
 }
 .box-top {
   padding: 3px;
