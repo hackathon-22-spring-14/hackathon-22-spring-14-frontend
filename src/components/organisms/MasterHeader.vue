@@ -6,7 +6,7 @@
       <a
         class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
       >
-        <span class="ml-3 text-xl">Stamp</span>
+        <span class="ml-3 text-xl">StamQ</span>
       </a>
       <nav
         class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center"
