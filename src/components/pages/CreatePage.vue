@@ -1,41 +1,46 @@
 <template>
 <div class="stamp">
-  <div class="upload">
+  <div style="width:fit-content;">
+    <div class="upload">
     <input v-model="title" placeholder="スタンプの名前を入力" class="stamp-title"/>
     <div class="upload-section">
-      <button @click="createStamp">Upload</button>
+      <button @click="createStamp">投稿</button>
     </div>
-  </div>
-  <div class="preview">
+    </div>
+    <div class="preview">
       <CanvasPreview />
+    </div>
   </div>
 </div>
   <div class="setting-box">
     <div class="setting-text">
       <div class="box-top"></div>
       <p class="box-title">テキスト</p>
-      <textarea v-model="text" class="main-textarea"></textarea>
-      <div id="v-model-radiobutton" class="font-select">
-        <!--<input v-model="picked" type="radio" value="san-serif" />
-        <label for="san-serif">san-serif</label>
-        <br />
-        <input v-model="picked" type="radio" value="fantasy" />
-        <label for="fantasy">fantasy</label>-->
+      <div class="items">
+        <p class="items-title">テキストを入力</p>
+        <textarea v-model="text" class="main-textarea"></textarea>
+      </div>
+      <div class="items">
+        <p class="items-title">フォント</p>
         <PulldownSelect
         :options="['san-serif', 'fantasy']"
         placeholder="Fontselect"
         class="pulldown-select"
         @selected="picked = $event"
-      />
+        />
       </div>
-      <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red
-      {{ colors[0] }}
-      <br />
-      <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green
-      {{ colors[1] }}
-      <br />
-      <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue
-      {{ colors[2] }}
+      <div class="items">
+        <p class="items-title">文字の色</p>
+        <input v-model="colors[0]" type="range" min="0" max="255" class="input-range"/>Red
+        {{ colors[0] }}
+        <br />
+        <input v-model="colors[1]" type="range" min="0" max="255" class="input-range"/>Green
+        {{ colors[1] }}
+        <br />
+        <input v-model="colors[2]" type="range" min="0" max="255" class="input-range"/>Blue
+        {{ colors[2] }}
+      </div>
+      
     </div>
 
     <div class="setting-background">
@@ -146,15 +151,17 @@ export default defineComponent({
 html {
   padding: 0;;
 }
+/**アップロード部分とプレビュー部分 */
 .stamp {
-  width: 300px;
+  display: flex;
+  width: auto;
   margin: 30px 0px 30px 0px;
   padding: 0px auto;
   justify-content: center;
 }
 .upload {
   display: flex;
-  width: 320px;
+  width: 310px;
   justify-content: center;
   margin: 5px;
 }
@@ -182,6 +189,7 @@ html {
   display: flex;
   width: 320px;
 }
+/**編集ボックス共通の部分 */
 .setting-box {
   flex-wrap: wrap;
   display: flex;
@@ -196,6 +204,18 @@ html {
   color: var(--textOnPrimary);
   padding: 5px;
 }
+.items {
+  background-color: rgb(210, 210, 210);
+  margin: 5px;
+  padding: 3px;
+}
+.items-title {
+  padding-left: 5px;
+  background-color: whitesmoke;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+/* テキスト編集ボックス */
 .setting-text {
   background-color: whitesmoke;
   width: 300px;
@@ -213,12 +233,17 @@ html {
   margin: 5px;
   background-color: white;
 }
+.input-range{
+  margin-left: 5px;
+}
+/* 背景編集ボックス */
 .setting-background {
   background-color: whitesmoke;
   width: 300px;
   margin: 10px;
   box-shadow: var(--standardShadow);
 }
+/** エフェクト編集ボックス */
 .setting-effects {
   background-color: whitesmoke;
   width: 300px;
