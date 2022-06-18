@@ -202,23 +202,23 @@ html {
 .stamp {
   display: flex;
   width: auto;
-  margin: 30px 0px 30px 0px;
+  margin: 0px 0px 10px 0px;
   padding: 0px auto;
   background-color: white;
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 5;
   box-shadow: var(--standardShadow);
 }
 .upload {
   display: flex;
-  width: 310px;
+  width: 272px;
   justify-content: center;
   margin: 5px;
 }
 .stamp-title {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   margin: 3px;
 }
 .upload-section {
@@ -239,7 +239,7 @@ html {
 .preview {
   background-color: whitesmoke;
   display: flex;
-  width: 320px;
+  width: fit-content;
   margin: 5px;
 }
 /**編集ボックス共通の部分 */
