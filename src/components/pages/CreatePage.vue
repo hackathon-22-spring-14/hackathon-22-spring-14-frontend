@@ -27,6 +27,13 @@
 
     <div class="setting-background">
       <p class="box-title">BACKGROUND</p>
+      <img
+        v-for="(imgInfo, key) in imgInfos"
+        :id="imgInfo.id"
+        :src="imgInfo.src"
+        @click="imgId = `${imgInfo.id}`"
+        :key="key"
+      />
       <InputFile />
     </div>
 
@@ -57,6 +64,13 @@ export default defineComponent({
       picked: 'fantasy',
       colors: [0, 0, 0],
       title: '',
+      imgId: 'img_null',
+      imgInfos: [
+        { src: '../../../img/null.png', id: 'img_null' },
+        { src: '../../../img/shuchu.png', id: 'shuchu.png' },
+        { src: '../../../img/red_shuchu.png', id: 'img_red_shuchu' },
+      ],
+      img_uploaded_index: 0,
     }
   },
   mounted() {
@@ -81,11 +95,24 @@ export default defineComponent({
       () => this.colors,
       () => this.rewrite(ctx, canvas.width, canvas.height)
     )
+
+    watch(
+      () => this.imgId,
+      () => this.rewrite(ctx, canvas.width, canvas.height)
+    )
   },
   methods: {
     rewrite(ctx: CanvasRenderingContext2D, w: number, h: number) {
       // 全体をクリア
       ctx.clearRect(0, 0, w, h)
+
+      const img_element = document.getElementById(this.imgId)
+
+      if (img_element) {
+        // const img_allpath_src = "../../../img/" + img_element.src
+        ctx.drawImage(img_element, 0, 0)
+      }
+
       if (this.text === '') {
         return
       }
