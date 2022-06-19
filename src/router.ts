@@ -3,7 +3,7 @@ import Create from './components/pages/CreatePage.vue'
 import Gallery from './components/pages/GalleryPage.vue'
 import Mypage from './components/pages/MyPage.vue'
 import LoginPage from './components/pages/LoginPage.vue'
-import axios from 'axios'
+import { api } from './utils/api'
 
 const routes = [
   { path: '/', name: 'createPage', component: Create },
@@ -22,7 +22,8 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   try {
-    await axios.get("/api/whoami");
+    await api.whoami()
+    // await axios.get("/api/whoami");
   } catch (_) {
     if (to.meta.isPublic) {
       return true;
