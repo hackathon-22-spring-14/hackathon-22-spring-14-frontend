@@ -4,6 +4,7 @@ import Gallery from './components/pages/GalleryPage.vue'
 import Mypage from './components/pages/MyPage.vue'
 import LoginPage from './components/pages/LoginPage.vue'
 import { api } from './utils/api'
+import axios from 'axios'
 
 const routes = [
   { path: '/', name: 'createPage', component: Create },
@@ -12,7 +13,12 @@ const routes = [
 
   { path: '/mypage', name: 'myPage', component: Mypage },
 
-  { path: '/login', name: 'LoginPage', component: LoginPage, meta: { isPublic: true } },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage,
+    meta: { isPublic: true },
+  },
 ]
 
 const router = createRouter({
@@ -22,15 +28,15 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   try {
-    await api.whoami()
-    // await axios.get("/api/whoami");
+    // await api.whoami()
+    await axios.get('/api/users/whoami')
   } catch (_) {
     if (to.meta.isPublic) {
-      return true;
+      return true
     }
-    return "/login";
+    return '/login'
   }
-  return true;
-});
+  return true
+})
 
 export default router
