@@ -4,9 +4,7 @@
     <!-- Cover -->
     <div class="card-cover">
       <p class="card-title">No.{{ num.toString() }} : {{ name }}</p>
-      <!--テストのために仮の画像を置いています-->
-      <img class="card-image" :src="image" />
-      <!--<img src="data:image/png;base64,{{ info.image }}" />-->
+      <img v-bind:src="image" />
     </div>
 
     <!-- Content -->

@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
     axios
-      .post('/api/stamps/me', {
+      .get('/api/stamps/me', {
         //id: this.username,
         //password: this.password,
       })
@@ -46,7 +46,7 @@ export default defineComponent({
       v-for="(stamp, index) in stampsInfo"
       :key="index"
       :num="index + 1"
-      :image="stamp.image ? stamp.image : '../../assets/IMG_1122.JPG'"
+      :image="'data:image/png;base64,'+stamp.image"
       :name="stamp.name!"
     />
 

@@ -14,6 +14,7 @@ export default defineComponent({
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
+    ;
     /*
     (async () => {
       try {
@@ -23,13 +24,13 @@ export default defineComponent({
         console.error(e)
       }
     })()*/
-
+    
     axios
       .get('/api/stamps', {
         //id: this.username,
         //password: this.password,
       })
-      .then((response) => (stampsInfo.value = response.data))
+    .then((response) => stampsInfo.value = response.data)
 
     return {
       stampsInfo,
@@ -47,6 +48,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <!--
   <div>
     <p>
       <button style="background-color: whitesmoke" @click="addCard">
@@ -57,18 +59,17 @@ export default defineComponent({
       <button style="background-color: whitesmoke" @click="reset">reset</button>
     </p>
   </div>
+  -->
 
   <div class="cards">
     <!-- A card with given width -->
-    <!--スタンプの数だけv-for-->
     <Card
       v-for="(stamp, index) in stampsInfo"
       :key="index"
-      :num="index + 1"
-      :image="stamp.image ? stamp.image : '../../assets/IMG_1122.JPG'"
+      :num="index+1"
+      :image="'data:image/png;base64,'+stamp.image"
       :name="stamp.name!"
     />
-
     <!-- Repeat other cards -->
   </div>
 </template>
