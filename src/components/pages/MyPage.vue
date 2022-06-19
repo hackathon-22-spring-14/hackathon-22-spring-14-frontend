@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
     axios
-      .post('/api/stampme', {
+      .post('/api/stamps/me', {
         //id: this.username,
         //password: this.password,
       })

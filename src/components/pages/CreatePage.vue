@@ -101,11 +101,7 @@
       <p class="box-title">エフェクト</p>
 
       <div v-for="(effInfo, key) in effInfos" :key="key">
-        <input
-          v-model="checked"
-          type="checkbox"
-          :value="effInfo.id"
-        />
+        <input v-model="checked" type="checkbox" :value="effInfo.id" />
         <label :for="effInfo.id">{{ effInfo.name }}</label>
       </div>
     </div>
