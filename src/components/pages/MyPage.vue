@@ -46,7 +46,7 @@ export default defineComponent({
       v-for="(stamp, index) in stampsInfo"
       :key="index"
       :num="index + 1"
-      :image="'data:image/png;base64,'+stamp.image"
+      :image="'data:image/png;base64,' + stamp.image"
       :name="stamp.name!"
     />
 

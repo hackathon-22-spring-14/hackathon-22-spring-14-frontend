@@ -27,7 +27,7 @@
       <div class="items">
         <p class="items-title">フォント</p>
         <PulldownSelect
-          :options="['san-serif', 'fantasy']"
+          :options="['san-serif', 'fantasy', 'Noto Sans JP', 'Noto Serif JP']"
           placeholder="Fontselect"
           class="pulldown-select"
           @selected="picked = $event"
@@ -271,6 +271,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Noto+Serif+JP&display=swap');
+
 html {
   padding: 0;
 }
