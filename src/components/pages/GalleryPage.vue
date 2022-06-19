@@ -5,6 +5,7 @@ import { defineComponent, Ref, ref } from 'vue'
 import { Stamp } from '../../lib/apis/generated'
 import { api } from '../../utils/api'
 import Card from '../molecules/StampCard.vue'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'GalleryPage',
@@ -13,14 +14,23 @@ export default defineComponent({
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
-    ;(async () => {
+    ;
+    /*
+    (async () => {
       try {
         const { data } = await api.getStamps()
         stampsInfo.value = data
       } catch (e) {
         console.error(e)
       }
-    })()
+    })()*/
+    
+    axios
+      .get('/api/stamps', {
+        //id: this.username,
+        //password: this.password,
+      })
+    .then((response) => stampsInfo.value = response.data)
 
     return {
       stampsInfo,
