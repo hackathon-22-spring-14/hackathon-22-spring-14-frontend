@@ -1,7 +1,9 @@
 <script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { defineComponent } from 'vue'
+import { defineComponent, Ref, ref } from 'vue'
+import { api } from '../../utils/api'
+import axios from 'axios'
 import Card from '../molecules/StampCard.vue'
 
 export default defineComponent({
@@ -10,8 +12,27 @@ export default defineComponent({
     Card,
   },
   setup() {
+    const stampsInfo: Ref<Stamp[]> = ref([])
+    ;
+    axios
+      .post('/api/stampme', {
+        //id: this.username,
+        //password: this.password,
+      })
+    .then((response) => stampsInfo.value = response.data)
+    
+    /*
+    (async () => {
+      try {
+        const { data } = await api.stampsme()
+        stampsInfo.value = data
+      } catch (e) {
+        console.error(e)
+      }
+    })()*/
+
     return {
-      nums: [1, 2, 3],
+      stampsInfo,
     }
   },
 })
@@ -21,13 +42,13 @@ export default defineComponent({
   <div class="cards">
     <!-- A card with given width -->
     <!--スタンプの数だけv-for-->
-    <div v-for="(num, index) in nums" :key="index">
-      <Card
-        :num="num"
-        :image="'https://q.trap.jp/api/v3/public/icon/inu_warabi'"
-        :name="'スタンプ' + num"
-      ></Card>
-    </div>
+    <Card
+      v-for="(stamp, index) in stampsInfo"
+      :key="index"
+      :num="index + 1"
+      :image="stamp.image ? stamp.image : '../../assets/IMG_1122.JPG'"
+      :name="stamp.name!"
+    />
 
     <!-- Repeat other cards -->
   </div>
