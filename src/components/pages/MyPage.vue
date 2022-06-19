@@ -2,6 +2,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { defineComponent, Ref, ref } from 'vue'
+import { Stamp } from '../../lib/apis/generated'
 import { api } from '../../utils/api'
 import axios from 'axios'
 import Card from '../molecules/StampCard.vue'
@@ -13,14 +14,13 @@ export default defineComponent({
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
-    ;
     axios
       .post('/api/stampme', {
         //id: this.username,
         //password: this.password,
       })
-    .then((response) => stampsInfo.value = response.data)
-    
+      .then((response) => (stampsInfo.value = response.data))
+
     /*
     (async () => {
       try {

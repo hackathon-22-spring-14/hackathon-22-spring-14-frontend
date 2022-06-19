@@ -14,7 +14,6 @@ export default defineComponent({
   },
   setup() {
     const stampsInfo: Ref<Stamp[]> = ref([])
-    ;
     /*
     (async () => {
       try {
@@ -24,13 +23,13 @@ export default defineComponent({
         console.error(e)
       }
     })()*/
-    
+
     axios
       .get('/api/stamps', {
         //id: this.username,
         //password: this.password,
       })
-    .then((response) => stampsInfo.value = response.data)
+      .then((response) => (stampsInfo.value = response.data))
 
     return {
       stampsInfo,

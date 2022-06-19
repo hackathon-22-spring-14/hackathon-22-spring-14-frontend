@@ -34,12 +34,6 @@ export default defineComponent({
   },
   methods: {
     login() {
-      /*
-      try {
-        api.login({id})
-      } catch (e) {
-        console.error(e)
-      }*/
       axios
         .post('/api/users/login', {
           id: this.username,

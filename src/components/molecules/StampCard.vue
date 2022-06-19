@@ -40,7 +40,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   margin: 10px;
-  box-shadow: var(--standardShadow)
+  box-shadow: var(--standardShadow);
 }
 .card-top {
   height: 5px;
@@ -49,7 +49,7 @@ export default defineComponent({
 .card-title {
   padding: 5px 5px 5px 10px;
   background-color: var(--primary);
-  color: var(--textOnPrimary)
+  color: var(--textOnPrimary);
 }
 
 .card-cover {

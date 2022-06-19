@@ -9,29 +9,29 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'InputFile', 
+  name: 'InputFile',
   props: ['imgInfosProp'],
-   data() {
-     return {
-       imgInfos: this.imgInfosProp
-     }
-   },
-   methods: {
-     loadImage(e) {
-       const now = new Date()
-       const newImgId =
-         'img_' +
-         now.getMinutes().toString() +
-         now.getSeconds().toString() +
-         now.getMilliseconds().toString()
+  data() {
+    return {
+      imgInfos: this.imgInfosProp,
+    }
+  },
+  methods: {
+    loadImage(e) {
+      const now = new Date()
+      const newImgId =
+        'img_' +
+        now.getMinutes().toString() +
+        now.getSeconds().toString() +
+        now.getMilliseconds().toString()
 
-       const reader = new FileReader()
-       reader.readAsDataURL(e.target.files[0])
-       reader.onload = () => {
-         this.imgInfos.push({ src: reader.result, id: newImgId })
-       }
-     },
-   },
+      const reader = new FileReader()
+      reader.readAsDataURL(e.target.files[0])
+      reader.onload = () => {
+        this.imgInfos.push({ src: reader.result, id: newImgId })
+      }
+    },
+  },
 })
 </script>
 

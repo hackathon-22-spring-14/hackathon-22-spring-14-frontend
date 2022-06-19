@@ -100,9 +100,8 @@
       <div class="box-top"></div>
       <p class="box-title">エフェクト</p>
 
-      <div v-for="(effInfo, key) in effInfos">
+      <div v-for="(effInfo, key) in effInfos" :key="key">
         <input
-          :key="key"
           v-model="checked"
           type="checkbox"
           :value="effInfo.id"
@@ -261,33 +260,15 @@ export default defineComponent({
       const canvas = document.getElementById('canvas') as HTMLCanvasElement
       const imageUrl = canvas.toDataURL('image/png')
 
-      const params = new FormData();
-      params.append('name', this.title);
-      params.append('image', imageUrl);
+      const base64ImageUrl = imageUrl.split(',')[1]
+      const params = new FormData()
+      params.append('name', this.title)
+      params.append('image', base64ImageUrl)
       axios.post('/api/stamps', params, {
-            headers: {
-              'content-type': 'multipart/form-data',
-            },
-          }
-      )
-      
-      /*
-      try {
-        const params = new FormData();
-        params.append('file', this.state.file);
-        axios
-          .post(
-        const body = new FormData()
-        body.append("name", this.title)
-        body.append("image", imageUrl)
-        axios
-        .post('/api/stamps', body)
-        .then((response) => console.log(response.data))
-        // api.createStamp(this.title, imageUrl)
-      } catch (e) {
-        console.error(e)
-      }
-      */
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
     },
   },
 })

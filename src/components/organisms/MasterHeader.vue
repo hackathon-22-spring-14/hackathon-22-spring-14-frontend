@@ -6,7 +6,7 @@
       <a
         class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
       >
-        <img src="../../assets/logo.png" class="logo-img"/>
+        <img src="../../assets/logo.png" class="logo-img" />
         <span class="ml-3 text-xl">StamQ</span>
       </a>
       <nav
@@ -37,4 +37,3 @@ header {
   width: 50px;
 }
 </style>
-
