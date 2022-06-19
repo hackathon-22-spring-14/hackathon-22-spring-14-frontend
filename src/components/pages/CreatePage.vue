@@ -101,7 +101,12 @@
       <p class="box-title">エフェクト</p>
 
       <div v-for="(effInfo, key) in effInfos">
-        <input v-model="checked" type="checkbox" :value="effInfo.id" :key="key"/>
+        <input
+          :key="key"
+          v-model="checked"
+          type="checkbox"
+          :value="effInfo.id"
+        />
         <label :for="effInfo.id">{{ effInfo.name }}</label>
       </div>
     </div>
@@ -114,6 +119,7 @@ import { api } from '../../utils/api'
 import CanvasPreview from '../atomics/CanvasPreview.vue'
 import InputFile from '../atomics/InputFile.vue'
 import PulldownSelect from '../atomics/PulldownSelect.vue'
+import axios from 'axios'
 
 export default defineComponent({
   components: {
@@ -254,11 +260,34 @@ export default defineComponent({
     createStamp() {
       const canvas = document.getElementById('canvas') as HTMLCanvasElement
       const imageUrl = canvas.toDataURL('image/png')
+
+      const params = new FormData();
+      params.append('name', this.title);
+      params.append('image', imageUrl);
+      axios.post('/api/stamps', params, {
+            headers: {
+              'content-type': 'multipart/form-data',
+            },
+          }
+      )
+      
+      /*
       try {
-        api.createStamp(this.title, imageUrl)
+        const params = new FormData();
+        params.append('file', this.state.file);
+        axios
+          .post(
+        const body = new FormData()
+        body.append("name", this.title)
+        body.append("image", imageUrl)
+        axios
+        .post('/api/stamps', body)
+        .then((response) => console.log(response.data))
+        // api.createStamp(this.title, imageUrl)
       } catch (e) {
         console.error(e)
       }
+      */
     },
   },
 })
